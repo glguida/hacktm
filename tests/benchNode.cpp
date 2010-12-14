@@ -34,8 +34,8 @@ main()
   BitVector black(inputSpace.size());
   black.set();
 
-  unsigned id = 99;
-  while ( id-- == 0 ) {
+  unsigned id = 30;
+  while ( id-- > 0 ) {
     switch ( id % 4) {
     case 0 : 
       spatialPooler(&n, diagonalL);
