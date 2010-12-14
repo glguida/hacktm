@@ -1,7 +1,7 @@
 #include <iostream>
 #include <valarray>
-#include "Vector.h"
-#include "MetricSpace.h"
+#include "metric/Vector.h"
+#include "metric/MetricSpace.h"
 
 
 using namespace metric;

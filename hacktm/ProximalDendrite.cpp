@@ -88,16 +88,17 @@ namespace HackTM {
   void
   ProximalDendrite::__incPotentialSynapse(struct synapse *syn)
   {
+    float prev_perm = syn->perm;
     syn->perm = std::min(syn->perm + htmconfig::permanenceInc, 1.0f);
 
-    if ( syn->perm >= htmconfig::connectedPerm )
+    if ( prev_perm <= htmconfig::connectedPerm 
+	 && syn->perm >= htmconfig::connectedPerm )
       __connectedSynapses.push_front(syn);
   }
   
   void
   ProximalDendrite::__decPotentialSynapse(struct synapse *syn)
   {
-    float prev_perm = syn->perm;
     syn->perm = std::max(0.0f, syn->perm - htmconfig::permanenceDec);
   }
 }

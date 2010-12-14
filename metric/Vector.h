@@ -23,7 +23,8 @@ namespace metric {
   }
   inline int VectorArea(const Vector &v)
   { 
-    std::accumulate(&v[0], &v[v.size()], 1, std::multiplies<int>());
+    return std::accumulate(VectorConstBegin(v), VectorConstEnd(v), 
+			   1, std::multiplies<int>());
   }
 }
 

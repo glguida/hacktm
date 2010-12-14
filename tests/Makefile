@@ -113,6 +113,34 @@ testMM/fast:
 .PHONY : testMM/fast
 
 # Convenience name for target.
+tests/CMakeFiles/testMisc.dir/rule:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testMisc.dir/rule
+.PHONY : tests/CMakeFiles/testMisc.dir/rule
+
+# Convenience name for target.
+testMisc: tests/CMakeFiles/testMisc.dir/rule
+.PHONY : testMisc
+
+# fast build rule for target.
+testMisc/fast:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/build
+.PHONY : testMisc/fast
+
+# Convenience name for target.
+tests/CMakeFiles/testNode.dir/rule:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testNode.dir/rule
+.PHONY : tests/CMakeFiles/testNode.dir/rule
+
+# Convenience name for target.
+testNode: tests/CMakeFiles/testNode.dir/rule
+.PHONY : testNode
+
+# fast build rule for target.
+testNode/fast:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/build
+.PHONY : testNode/fast
+
+# Convenience name for target.
 tests/CMakeFiles/testRegion.dir/rule:
 	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testRegion.dir/rule
 .PHONY : tests/CMakeFiles/testRegion.dir/rule
@@ -141,6 +169,21 @@ testSphere/fast:
 .PHONY : testSphere/fast
 
 # target to build an object file
+test.o:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/test.o
+.PHONY : test.o
+
+# target to preprocess a source file
+test.i:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/test.i
+.PHONY : test.i
+
+# target to generate assembly for a file
+test.s:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/test.s
+.PHONY : test.s
+
+# target to build an object file
 testMM.o:
 	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.o
 .PHONY : testMM.o
@@ -154,6 +197,21 @@ testMM.i:
 testMM.s:
 	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.s
 .PHONY : testMM.s
+
+# target to build an object file
+testNode.o:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.o
+.PHONY : testNode.o
+
+# target to preprocess a source file
+testNode.i:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.i
+.PHONY : testNode.i
+
+# target to generate assembly for a file
+testNode.s:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.s
+.PHONY : testNode.s
 
 # target to build an object file
 testRegion.o:
@@ -194,11 +252,19 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... testMM"
+	@echo "... testMisc"
+	@echo "... testNode"
 	@echo "... testRegion"
 	@echo "... testSphere"
+	@echo "... test.o"
+	@echo "... test.i"
+	@echo "... test.s"
 	@echo "... testMM.o"
 	@echo "... testMM.i"
 	@echo "... testMM.s"
+	@echo "... testNode.o"
+	@echo "... testNode.i"
+	@echo "... testNode.s"
 	@echo "... testRegion.o"
 	@echo "... testRegion.i"
 	@echo "... testRegion.s"

@@ -5,7 +5,7 @@
 
 namespace metric {
 
-  typedef unsigned (DistanceFunction)(Vector x, Vector y);
+  typedef unsigned (DistanceFunction)(const Vector &x, const Vector &y);
 
   DistanceFunction Norm1;
   DistanceFunction Euclidean;

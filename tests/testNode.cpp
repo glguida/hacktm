@@ -1,5 +1,5 @@
-#include "vector2D.h"
 #include "BitVector.h"
+#include "metric/Vector.h"
 #include "Region.h"
 #include "HTMFunctions.h"
 
@@ -8,9 +8,9 @@ using namespace HackTM;
 
 main()
 {
-  Vector2D input(1000,1000);
-  Vector2D columns(30,30);
-  MetricSpace inputSpace(input), columnSpace(columns);
+  Vector input(1000,2);
+  Vector columns(30,2);
+  MetricSpace inputSpace(&input), columnSpace(&columns);
 
   std::cout << "Initializing...";
 
@@ -18,21 +18,21 @@ main()
 
   spatialPoolerInit(&n);
 
-  BitVector diagonalL(input.area());
+  BitVector diagonalL(inputSpace.size());
   for ( unsigned i = 0; i < 1000; i++ ) {
     diagonalL.set(i * 1000 + i);
   }
-  BitVector diagonalR(input.area());
+  BitVector diagonalR(inputSpace.size());
   for ( unsigned i = 0; i < 1000; i++ ) {
     diagonalR.set(i * 1000 + (999 - i));
   }
-  BitVector ddiag(input.area());
+  BitVector ddiag(inputSpace.size());
   for ( unsigned i = 0; i < 1000; i++ ) {
     ddiag.set(i * 1000 + (999 - i));
     ddiag.set(i * 1000 + i);
   }
 
-  BitVector black(input.area());
+  BitVector black(inputSpace.size());
   black.set();
 
   std::cout << "done." << std::endl;

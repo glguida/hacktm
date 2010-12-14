@@ -8,18 +8,18 @@ using namespace std;
 
 namespace metric {
 
-  unsigned Norm1(Vector x, Vector y)
+  unsigned Norm1(const Vector &x, const Vector &y)
   {
     return (abs(x - y)).sum();
   }
 
-  unsigned Euclidean(Vector x, Vector y)
+  unsigned Euclidean(const Vector &x, const Vector &y)
   {
     Vector diff = x - y;
     return (unsigned)sqrtf((diff * diff).sum());
   }
 
-  unsigned NormInf(Vector x, Vector y)
+  unsigned NormInf(const Vector &x, const Vector &y)
   {
     return (abs(x - y)).max();
   }
