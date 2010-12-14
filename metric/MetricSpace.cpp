@@ -10,39 +10,21 @@
 namespace metric {
 
   MetricSpace::MetricSpace(const Vector *max, const DistanceFunction &dist)
-    : __distance(dist)
+    : __distance(dist), __dim(max->size()), __max(*max), 
+      __size(VectorArea(*max)), __idProjector(max->size())
   {
-    __dim = max->size();
-    __max = new Vector(*max);
-    __idProjector = new Vector(__dim);
-    __size = VectorArea(*__max);
-    //    __size = VectorArea(max);
-    //    std::cout << __max[0] << " " << __max[1] << std::endl;
-
-    std::cout << " size is " << __size << std::endl;
-    std::cout << " size is " << VectorArea(*__max) << std::endl;
-    std::cout << " size is " << VectorArea(*max) << std::endl;
-
     /*
      * Calculate __idProjector;
      */
 
     // get a vector [ 1 MaxX MaxY MaxZ ... ]
-    Vector tmp = __max->shift(-1);
+    Vector tmp = __max.shift(-1);
     tmp[0] = 1;
 
     // get a vector [ 1 MaxX MaxY*MaxX MaxZ*MaxY*MaxX ... ]
     std::partial_sum(VectorBegin(tmp), VectorEnd(tmp),
-		     VectorBegin(*__idProjector),
+		     VectorBegin(__idProjector),
 		     std::multiplies<unsigned>());
-
-    std::cout << "[";
-    for ( unsigned i = 0; i < __idProjector->size(); i++ )
-      std::cout << (*__idProjector)[i] << " ";
-    std::cout << "]\n";
-
-    std::cout << "Initializing a " << __dim << "-dimensional space.\n";
-
   }
   
   struct functor_normrnd {

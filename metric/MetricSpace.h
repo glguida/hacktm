@@ -18,19 +18,19 @@ namespace metric {
       return id < __size;
     }
     inline bool contains(const Vector &v) const {
-      return (v >= 0).min() && (v < (*__max)).min();
+      return (v >= 0).min() && (v < __max).min();
     }
 
     inline unsigned getIdFromVector(const Vector &v) const {
       assert ( contains(v) );
       return std::inner_product(VectorConstBegin(v), VectorConstEnd(v), 
-				VectorConstBegin(*__idProjector), 0);
+				VectorConstBegin(__idProjector), 0);
     }
     inline Vector getVectorFromId(unsigned id) const {
       assert ( contains(id) );
       Vector tmp(id, __dim);
-      tmp /= *__idProjector;
-      tmp %= *__max;
+      tmp /= __idProjector;
+      tmp %= __max;
       return tmp;
     }
 
@@ -44,31 +44,31 @@ namespace metric {
     unsigned getDistance(Vector v1, Vector v2) const;
 
     inline bool operator>(const MetricSpace &LHS) const {
-      return (*(this->__max) > *(LHS.__max)).min();
+      return (this->__max > LHS.__max).min();
     }
     inline bool operator>=(const MetricSpace &LHS) const {
-      return (*(this->__max) >= *(LHS.__max)).min();
+      return (this->__max >= LHS.__max).min();
     }
     inline bool operator<=(const MetricSpace &LHS) const {
-      return (*(this->__max) <= *(LHS.__max)).min();
+      return (this->__max <= LHS.__max).min();
     }
     inline bool operator<(const MetricSpace &LHS) const {
-      return (*(this->__max) < *(LHS.__max)).min();
+      return (this->__max < LHS.__max).min();
     }
     inline bool operator==(const MetricSpace &LHS) const {
-      return (*(this->__max) == *(LHS.__max)).min();
+      return (this->__max == LHS.__max).min();
     }
     inline bool operator!=(const MetricSpace &LHS) const {
-      return (*(this->__max) != *(LHS.__max)).min();
+      return (this->__max != LHS.__max).min();
     }
 
     inline Vector operator/(const MetricSpace &LHS) const {
-      return (*(this->__max) / *(LHS.__max));
+      return (this->__max / LHS.__max);
     }
 
   private:
-    Vector *__idProjector;
-    Vector *__max;
+    Vector __idProjector;
+    Vector __max;
     unsigned __dim;
     unsigned __size;
     DistanceFunction &__distance;
