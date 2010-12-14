@@ -174,6 +174,8 @@ help:
 	@echo "... HackTM"
 	@echo "... metric"
 	@echo "... testMM"
+	@echo "... testMisc"
+	@echo "... testNode"
 	@echo "... testRegion"
 	@echo "... testSphere"
 .PHONY : help

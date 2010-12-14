@@ -6,8 +6,8 @@ using namespace HackTM;
 
 main()
 {
-  Vector col(2);
   Vector input(1000,2);
+  Vector col(2);
   col[0] = 20;
   col[1] = 30;
 

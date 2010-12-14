@@ -1,5 +1,6 @@
 #include "BitVector.h"
 #include "metric/Vector.h"
+#include "metric/DistanceFunctions.h"
 #include "Region.h"
 #include "HTMFunctions.h"
 
