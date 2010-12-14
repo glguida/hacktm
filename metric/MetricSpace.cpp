@@ -59,9 +59,12 @@ namespace metric {
   MetricSpace::getNormalRandomVector(const Vector &c, unsigned r) const
   {
     Vector random(0, __dim);
+    /* Note, the current function doesn't actually garantess that the
+       random point is in the radius, only very close. (Actually, it's
+       guaraneed in case you're using the normInf distance :-)) */
     do {
       std::transform(VectorConstBegin(c), VectorConstEnd(c), VectorBegin(random), functor_normrnd(r));
-    } while ( !contains(random) || (getDistance(c, random) > r) );
+    } while ( !contains(random) );
     return random;
   }
 

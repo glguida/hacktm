@@ -94,8 +94,9 @@ namespace HackTM {
     for ( it = columns.begin(); it != columns.end(); it++ ) {
       ProximalDendrite *p = new ProximalDendrite(__inputSpace);
       unsigned center = getColumnInputCenter(*it),
-	radius = scaleRadiusFromColumnSpace(4),
-	syns = radius * radius / 10;
+	columnradius = scaleRadiusFromColumnSpace(1),
+	radius = 4 * columnradius,
+	syns = columnradius * columnradius;
 
       p->populatePotentialSynapses(syns, center, radius);
       (*it)->proximalDendrite = p;
