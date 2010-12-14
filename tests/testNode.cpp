@@ -9,9 +9,11 @@ using namespace HackTM;
 
 main()
 {
+  EuclideanDist dist;
   Vector input(1000,2);
   Vector columns(30,2);
-  MetricSpace inputSpace(&input), columnSpace(&columns);
+  MetricSpace inputSpace(&input, dist);
+  MetricSpace columnSpace(&columns, dist);
 
   std::cout << "Initializing...";
 

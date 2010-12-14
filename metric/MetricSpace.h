@@ -3,13 +3,13 @@
 
 #include <cassert>
 #include "Vector.h"
-#include "DistanceFunctions.h"
+#include "Distance.h"
 
 namespace metric {
   class MetricSpace {
 
   public:
-    MetricSpace(const Vector *max, const DistanceFunction &dist = Euclidean);
+    MetricSpace(const Vector *max, const Distance &dist);
 
     inline const unsigned size() const { return __size; }
     inline const unsigned dimensions() const { return __dim; }
@@ -41,7 +41,10 @@ namespace metric {
     unsigned getNormalRandomId(unsigned c, unsigned r) const;
 
     unsigned getDistance(unsigned id1, unsigned id2) const;
-    unsigned getDistance(Vector v1, Vector v2) const;
+    unsigned getDistance(Vector &v1, Vector &v2) const;
+
+    void getIdRangeContainingSphere(unsigned c, unsigned r,
+				     unsigned &first, unsigned &last) const;
 
     inline bool operator>(const MetricSpace &LHS) const {
       return (this->__max > LHS.__max).min();
@@ -71,7 +74,7 @@ namespace metric {
     Vector __max;
     unsigned __dim;
     unsigned __size;
-    DistanceFunction &__distance;
+    const Distance &__distance;
   };
 
 }

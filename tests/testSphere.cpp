@@ -7,10 +7,11 @@ using namespace metric;
 
 main()
 {
+  OneNormDist dist;
   Vector max(100, 2), center(2);
   center[0] = 50;
   center[1] = 50;
-  MetricSpace space(&max, NormInf);
+  MetricSpace space(&max, dist);
   Sphere s;
   Sphere x(&space, space.getIdFromVector(center), 20);
 

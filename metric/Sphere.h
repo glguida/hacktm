@@ -8,7 +8,6 @@ namespace metric {
 
   class Sphere {
   private:
-
     class SphereRandomIterator {
     public:
       inline SphereRandomIterator& operator++() {
@@ -29,13 +28,13 @@ namespace metric {
       inline bool operator!=(const SphereRandomIterator &RHS) {
 	return !(*this == RHS);
       }
-
+      
       SphereRandomIterator(const Sphere *s)
 	: __sphere(s), __bitmap(BitVector(s->__metricSpace->size()))
       {
 	__getNextRandom();
       }
-	  
+      
     private:
       unsigned __curId;
       const Sphere *__sphere;
@@ -51,7 +50,7 @@ namespace metric {
 	__curId = random;
       }
     };
-
+    
     class SphereIterator {
     public:
       inline SphereIterator& operator++() {
@@ -75,10 +74,13 @@ namespace metric {
       inline bool operator!=(const SphereIterator &RHS) {
 	return !(*this == RHS);
       }
-      inline bool operator=(const SphereIterator &RHS) {
+
+      inline SphereIterator& operator=(const SphereIterator &RHS) {
 	__sphere = RHS.__sphere;
 	__curId = RHS.__curId;
+	__maxId = RHS.__maxId;
 	__atEnd = RHS.__atEnd;
+	return *this;
       }
 
       SphereIterator() : __sphere(NULL) {}
@@ -89,18 +91,37 @@ namespace metric {
 	__atEnd = end;
 	if ( __atEnd )
 	  return;
-	__curId = 0;
+	/*
+	  We have to scan now the space to find elements that are in
+	  the radius of the sphere. The most generic approach for
+	  unusual distances is to sweep the whole space. This is of
+	  course inefficient. Ask the sphere, that knows more about
+	  the geometry of the space in what interval to search.
+	*/
+	/*
+	  For standard norms, we could just check for the square
+	  between <min(x),min<y>,...> and <max(x),max(y),..>. This is
+	  by far the best engineering solution, but being this my pet
+	  project I want to honour my Lobacevski reading nights and my
+	  geometry-freak days and get the searching edges based on the
+	  distance implemented.
+	*/
+	__sphere->__metricSpace->getIdRangeContainingSphere(__sphere->__center,
+							    __sphere->__radius,
+							    __curId, __maxId);
 	__advanceToNext();
       }
       
     private:
       bool __atEnd;
       unsigned __curId;
+      unsigned __maxId;
       const Sphere *__sphere;
 
       inline void __incCurId()
       {
-	if ( ++__curId >= __sphere->__metricSpace->size() )
+	if ( ++__curId >= __sphere->__metricSpace->size()
+	     || __curId >= __maxId )
 	  __atEnd = true;
       }
       inline void __advanceToNext()

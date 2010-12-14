@@ -3,15 +3,17 @@
 #include "metric/DistanceFunctions.h"
 #include "Region.h"
 #include "HTMFunctions.h"
+#include "metric/Distance.h"
 
 using namespace metric;
 using namespace HackTM;
 
 main()
 {
+  EuclideanDist dist;
   Vector input(1000,2);
   Vector columns(30,2);
-  MetricSpace inputSpace(&input), columnSpace(&columns);
+  MetricSpace inputSpace(&input, dist), columnSpace(&columns, dist);
 
   Region n(&inputSpace, &columnSpace);
 

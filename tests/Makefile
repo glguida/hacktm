@@ -99,6 +99,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+tests/CMakeFiles/benchNode.dir/rule:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/benchNode.dir/rule
+.PHONY : tests/CMakeFiles/benchNode.dir/rule
+
+# Convenience name for target.
+benchNode: tests/CMakeFiles/benchNode.dir/rule
+.PHONY : benchNode
+
+# fast build rule for target.
+benchNode/fast:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/build
+.PHONY : benchNode/fast
+
+# Convenience name for target.
 tests/CMakeFiles/testMM.dir/rule:
 	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testMM.dir/rule
 .PHONY : tests/CMakeFiles/testMM.dir/rule
@@ -167,6 +181,21 @@ testSphere: tests/CMakeFiles/testSphere.dir/rule
 testSphere/fast:
 	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testSphere.dir/build.make tests/CMakeFiles/testSphere.dir/build
 .PHONY : testSphere/fast
+
+# target to build an object file
+benchNode.o:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.o
+.PHONY : benchNode.o
+
+# target to preprocess a source file
+benchNode.i:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.i
+.PHONY : benchNode.i
+
+# target to generate assembly for a file
+benchNode.s:
+	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.s
+.PHONY : benchNode.s
 
 # target to build an object file
 test.o:
@@ -249,6 +278,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... benchNode"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... testMM"
@@ -256,6 +286,9 @@ help:
 	@echo "... testNode"
 	@echo "... testRegion"
 	@echo "... testSphere"
+	@echo "... benchNode.o"
+	@echo "... benchNode.i"
+	@echo "... benchNode.s"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"

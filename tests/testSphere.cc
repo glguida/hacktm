@@ -1,1 +1,0 @@
-testSphere.cpp

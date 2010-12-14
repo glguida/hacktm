@@ -125,6 +125,19 @@ metric/fast:
 .PHONY : metric/fast
 
 #=============================================================================
+# Target rules for targets named benchNode
+
+# Build rule for target.
+benchNode: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 benchNode
+.PHONY : benchNode
+
+# fast build rule for target.
+benchNode/fast:
+	$(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/build
+.PHONY : benchNode/fast
+
+#=============================================================================
 # Target rules for targets named testMM
 
 # Build rule for target.
@@ -136,6 +149,32 @@ testMM: cmake_check_build_system
 testMM/fast:
 	$(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/build
 .PHONY : testMM/fast
+
+#=============================================================================
+# Target rules for targets named testMisc
+
+# Build rule for target.
+testMisc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testMisc
+.PHONY : testMisc
+
+# fast build rule for target.
+testMisc/fast:
+	$(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/build
+.PHONY : testMisc/fast
+
+#=============================================================================
+# Target rules for targets named testNode
+
+# Build rule for target.
+testNode: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testNode
+.PHONY : testNode
+
+# fast build rule for target.
+testNode/fast:
+	$(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/build
+.PHONY : testNode/fast
 
 #=============================================================================
 # Target rules for targets named testRegion
@@ -173,6 +212,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HackTM"
 	@echo "... metric"
+	@echo "... benchNode"
 	@echo "... testMM"
 	@echo "... testMisc"
 	@echo "... testNode"

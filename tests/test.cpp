@@ -25,9 +25,9 @@ main()
 
   std::cout << "HERE!!!" << (VV >= 0).min() << '\n';
   
-
-  MetricSpace s1(&x);
-  MetricSpace s2(&y);
+  EuclideanDist dist;
+  MetricSpace s1(&x, dist);
+  MetricSpace s2(&y, dist);
 
   std::cout << s1.size() << std::endl;
   std::cout << s1.contains(y) << std::endl;

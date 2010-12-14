@@ -9,7 +9,7 @@
 
 namespace metric {
 
-  MetricSpace::MetricSpace(const Vector *max, const DistanceFunction &dist)
+  MetricSpace::MetricSpace(const Vector *max, const Distance &dist)
     : __distance(dist), __dim(max->size()), __max(*max), 
       __size(VectorArea(*max)), __idProjector(max->size())
   {
@@ -61,13 +61,34 @@ namespace metric {
   unsigned
   MetricSpace::getDistance(unsigned id1, unsigned id2) const
   {
-    return __distance(getVectorFromId(id1), getVectorFromId(id2));
+    return __distance.getDistance(getVectorFromId(id1), getVectorFromId(id2));
   }
   unsigned
-  MetricSpace::getDistance(Vector v1, Vector v2) const
+  MetricSpace::getDistance(Vector &v1, Vector &v2) const
   {
-    return __distance(v1, v2);
+    return __distance.getDistance(v1, v2);
   }
+
+  void
+  MetricSpace::getIdRangeContainingSphere(unsigned c, unsigned r,
+					  unsigned &first, unsigned &last) const
+  {
+    Vector vcenter = getVectorFromId(c);
+    Vector vfirst(vcenter.size());
+    Vector vlast(vcenter.size());
+    __distance.getSphericalRange(vcenter, r, vfirst, vlast);
+
+    if ( contains(vfirst) )
+      first = getIdFromVector(vfirst);
+    else
+      first = 0;
+
+    if ( contains(vlast) )
+      last = getIdFromVector(vlast);
+    else
+      last = size();
+  }
+
 
   struct functor_minmax {
     functor_minmax(bool max) : __isMax(max) {}

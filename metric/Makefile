@@ -113,21 +113,6 @@ metric/fast:
 .PHONY : metric/fast
 
 # target to build an object file
-DistanceFunctions.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f metric/CMakeFiles/metric.dir/build.make metric/CMakeFiles/metric.dir/DistanceFunctions.o
-.PHONY : DistanceFunctions.o
-
-# target to preprocess a source file
-DistanceFunctions.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f metric/CMakeFiles/metric.dir/build.make metric/CMakeFiles/metric.dir/DistanceFunctions.i
-.PHONY : DistanceFunctions.i
-
-# target to generate assembly for a file
-DistanceFunctions.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f metric/CMakeFiles/metric.dir/build.make metric/CMakeFiles/metric.dir/DistanceFunctions.s
-.PHONY : DistanceFunctions.s
-
-# target to build an object file
 MetricSpace.o:
 	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f metric/CMakeFiles/metric.dir/build.make metric/CMakeFiles/metric.dir/MetricSpace.o
 .PHONY : MetricSpace.o
@@ -166,9 +151,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... metric"
 	@echo "... rebuild_cache"
-	@echo "... DistanceFunctions.o"
-	@echo "... DistanceFunctions.i"
-	@echo "... DistanceFunctions.s"
 	@echo "... MetricSpace.o"
 	@echo "... MetricSpace.i"
 	@echo "... MetricSpace.s"

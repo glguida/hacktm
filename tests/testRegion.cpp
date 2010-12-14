@@ -6,12 +6,13 @@ using namespace HackTM;
 
 main()
 {
+  EuclideanDist dist;
   Vector input(1000,2);
   Vector col(2);
   col[0] = 20;
   col[1] = 30;
 
-  MetricSpace inputSpace(&input), columnSpace(&col);
+  MetricSpace inputSpace(&input, dist), columnSpace(&col, dist);
   Region r(&inputSpace, &columnSpace);
 
   for ( Region::column_iterator it = r.columns.begin(); it != r.columns.end(); it++ ) {
