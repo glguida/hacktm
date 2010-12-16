@@ -3,6 +3,7 @@
 
 #include <list>
 #include <vector>
+#include <iostream>
 
 #include "HackTM.h"
 #include "Column.h"
