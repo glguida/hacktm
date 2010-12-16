@@ -3,7 +3,8 @@
 
 #include <list>
 #include <vector>
-#include "Space.h"
+
+#include "HackTM.h"
 #include "Column.h"
 
 namespace HackTM {
@@ -17,7 +18,7 @@ namespace HackTM {
     void inhibitColumns();
     void adjustProximalSynapses(const BitVector &inpu);
 
-    inline void setInhibitionRadius(unsigned r) { __inhibitionRadius = r; };
+    inline void setInhibitionRadius(scalar_t r) { __inhibitionRadius = r; };
 
     inline const Space *getInputSpace() const {
       return __inputSpace;
@@ -25,13 +26,13 @@ namespace HackTM {
     inline const Space *getColumnSpace() const {
       return __columnSpace;
     }
-    inline unsigned getColumnInputCenter(Column *c) const {
+    inline id_t getColumnInputCenter(Column *c) const {
       return __inputToColumn->transformIdBackward(c->getId());
     }
-    inline unsigned scaleRadiusFromColumnSpace(unsigned value) const { 
+    inline scalar_t scaleRadiusFromColumnSpace(scalar_t value) const { 
       return __inputToColumn->transformScalarBackward(value);
     }
-    inline unsigned scaleRadiusToColumnSpace(unsigned value) const {
+    inline scalar_t scaleRadiusToColumnSpace(scalar_t value) const {
       return __inputToColumn->transformScalarForward(value);
     }
 
@@ -44,7 +45,7 @@ namespace HackTM {
     void __connectColumnsToInput();
     unsigned kthScore(SubSpace &neighbors, unsigned);
 
-    unsigned __inhibitionRadius;
+    scalar_t __inhibitionRadius;
     const Space *__inputSpace;
     const Space *__columnSpace;
     const SpaceTransform *__inputToColumn;

@@ -1,14 +1,14 @@
-#include "HackTMConfig.h"
-#include "HTMFunctions.h"
-
 #include <cassert>
 #include <algorithm>
 #include <functional>
 
+#include "HackTM.h"
+#include "Region.h"
+
 using namespace htmconfig;
 
 namespace HackTM {
-  unsigned averageReceptiveFieldSize(Region *r)
+  scalar_t averageReceptiveFieldSize(Region *r)
   {
     unsigned long long avg = 0; // No overflow check.
     for ( Region::column_iterator it = r->columns.begin(); it != r->columns.end(); it++ )

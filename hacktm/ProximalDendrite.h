@@ -2,6 +2,7 @@
 #define __HACKTM_PROXIMAL_DENDRITES_H__
 
 #include <list>
+#include "HackTM.h"
 #include "Space.h"
 #include "BitVector.h"
 
@@ -9,7 +10,7 @@ namespace HackTM {
 
   struct synapse {
     float perm;
-    unsigned id;
+    id_t id;
   };
 
   class ProximalDendrite {
@@ -18,12 +19,12 @@ namespace HackTM {
       : __inputSpace(inputspace) {}
     ~ProximalDendrite();
 
-    void populatePotentialSynapses(unsigned synapses, unsigned center, unsigned radius);
+    void populatePotentialSynapses(unsigned synapses, id_t center, scalar_t radius);
     void adjustPotentialSynapses(const BitVector &input);
     void clearPotentialSynapses();
 
     unsigned getOverlap(const BitVector &input);
-    inline unsigned getReceptiveFieldSize() const { return __receptiveFieldSize; }
+    inline scalar_t getReceptiveFieldSize() const { return __receptiveFieldSize; }
 
     typedef std::list<struct synapse *>::iterator synapse_iterator;
     inline synapse_iterator connectedBegin () {
@@ -40,14 +41,14 @@ namespace HackTM {
     }
 
   private:
-    unsigned __receptiveFieldSize;
+    scalar_t __receptiveFieldSize;
     void __updateReceptiveFieldSize();
 
     const Space *__inputSpace;
 
     std::list<struct synapse *> __connectedSynapses;
     std::list<struct synapse *> __potentialSynapses;
-    void __addSynapse(unsigned id, float perm);
+    void __addSynapse(id_t id, float perm);
     void __incPotentialSynapse(struct synapse *syn);
     void __decPotentialSynapse(struct synapse *syn);
   };

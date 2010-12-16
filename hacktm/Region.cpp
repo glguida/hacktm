@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cassert>
-#include "HackTMConfig.h"
+
+#include "HackTM.h"
 #include "Region.h"
 
 namespace HackTM {
@@ -69,28 +70,6 @@ namespace HackTM {
     else
       return 0;
   }
-#if 0
-  unsigned 
-  Region::kthScore(Sphere::iterator first, Sphere::iterator last, unsigned k)
-  {
-    Sphere::iterator it;
-    std::vector<unsigned> scores;
-    std::vector<unsigned>::iterator scit;
-
-    assert( k >= 1 );
-
-    for ( it = first; it != last; it++ ) {
-      unsigned newscore = columns[(*it)]->getOverlap();
-      scit = upper_bound(scores.begin(), scores.end(), newscore, std::greater<unsigned>());
-      if ( scit - scores.begin() < k )
-	scit = scores.insert(scit, newscore);
-    }
-    if ( scores.size() >= k )
-      return scores[k - 1];
-    else
-      return 0;
-  }
-#endif
 
   void
   Region::inhibitColumns()
@@ -126,10 +105,10 @@ namespace HackTM {
     column_iterator it;
     for ( it = columns.begin(); it != columns.end(); it++ ) {
       ProximalDendrite *p = new ProximalDendrite(__inputSpace);
-      unsigned center = getColumnInputCenter(*it),
-	columnradius = scaleRadiusFromColumnSpace(1),
-	radius = 4 * columnradius,
-	syns = columnradius * columnradius;
+      id_t center = getColumnInputCenter(*it);
+      scalar_t columnradius = scaleRadiusFromColumnSpace(1);
+      scalar_t radius = 4 * columnradius;
+      unsigned syns = columnradius * columnradius;
 
       p->populatePotentialSynapses(syns, center, radius);
       (*it)->proximalDendrite = p;

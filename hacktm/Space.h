@@ -5,12 +5,9 @@
 #include <vector>
 #include <numeric>
 
-namespace HackTM {
+#include "HackTM.h"
 
-  typedef int coord_t;
-  typedef unsigned id_t;
-  typedef unsigned scalar_t;
-  typedef std::vector<coord_t> Vector;
+namespace HackTM {
 
   class Space {
   public:
@@ -57,8 +54,8 @@ namespace HackTM {
 
     inline scalar_t getRadius() const { return __radius; };
     inline id_t getMinId() const { return __minId; }
-    inline unsigned getMinCoord(int i) const { return __minSub[i]; }
-    inline unsigned getMaxCoord(int i) const { return __maxSub[i]; }
+    inline coord_t getMinCoord(int i) const { return __minSub[i]; }
+    inline coord_t getMaxCoord(int i) const { return __maxSub[i]; }
     inline const Space *getSpace() const { return __space; }
 
 
@@ -143,7 +140,7 @@ namespace HackTM {
     //    Vector &transformVectorBackward(const Vector &iv, Vector &ov);
 
     id_t transformIdForward(id_t iid) const {
-      unsigned oid = 0;
+      id_t oid = 0;
       for ( unsigned i = 0; i < __inputSpace->getDimensions(); i++ ) {
 	coord_t icoord = __inputSpace->getCoord(iid, i);
 	coord_t ocoord = icoord / __inOutRatios[i];
@@ -155,7 +152,7 @@ namespace HackTM {
 
     id_t transformIdBackward(id_t oid) const
     {
-      unsigned iid = 0;
+      id_t iid = 0;
       for ( unsigned i = 0; i < __inputSpace->getDimensions(); i++ ) {
 	coord_t ocoord = __outputSpace->getCoord(oid, i);
 	// Add 1/2 of the ratio to be at the center of the interval.

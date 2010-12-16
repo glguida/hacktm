@@ -1,10 +1,10 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include "HackTMConfig.h"
+
+#include "HackTM.h"
 #include "ProximalDendrite.h"
 #include "rnd_normal.h"
-#include "Space.h"
 
 
 namespace HackTM {
@@ -24,7 +24,7 @@ namespace HackTM {
   }
 
   void 
-  ProximalDendrite::populatePotentialSynapses(unsigned synapses, unsigned center, unsigned radius)
+  ProximalDendrite::populatePotentialSynapses(unsigned synapses, id_t center, scalar_t radius)
   {
     NormalRandomGenerator nrg(__inputSpace, center, radius);
     for ( unsigned i = 0; i < synapses; i++ )
@@ -71,7 +71,7 @@ namespace HackTM {
   }
 
   void 
-  ProximalDendrite::__addSynapse(unsigned id, float perm)
+  ProximalDendrite::__addSynapse(id_t id, float perm)
   {
     struct synapse *syn = new struct synapse;
     syn->id = id;

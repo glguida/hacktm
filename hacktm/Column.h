@@ -1,26 +1,27 @@
 #ifndef __HACKTM_COLUMN__
 #define __HACKTM_COLUMN__
 
+#include "HackTM.h"
 #include "ProximalDendrite.h"
 
 namespace HackTM {
 
   class Column {
   public:
-    Column(unsigned id)
+    Column(id_t id)
       : __id(id) {}
     ~Column();
 
-    inline unsigned getId() const { return __id; }
+    inline id_t getId() const { return __id; }
 
     void updateOverlap(const BitVector &input);
     inline unsigned getOverlap() const { return __overlap; }
 
-    ProximalDendrite    *proximalDendrite;    
+    ProximalDendrite *proximalDendrite;    
 
   private:
-    unsigned             __id;
-    unsigned             __overlap;
+    id_t __id;
+    unsigned __overlap;
   };
 }
 #endif

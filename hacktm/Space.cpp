@@ -2,10 +2,10 @@
 #include <numeric>
 #include <functional>
 #include <cassert>
-#include "Space.h"
-#include "rnd_normal.h" /* FIXME */
 
-#include <iostream>
+#include "HackTM.h"
+#include "Space.h"
+#include "rnd_normal.h"
 
 using namespace HackTM;
 
@@ -29,7 +29,6 @@ Space::Space(const Vector &max)
 Vector &
 Space::setVectorFromId(id_t id, Vector &v) const
 {
-  unsigned i = 0;
   assert ( contains(id) );
   assert ( v.size() == __dimensions );
   for ( unsigned i = 0; i < __dimensions; i++ ) {
@@ -53,7 +52,6 @@ SubSpace::SubSpace(const Space *space, id_t center, scalar_t radius)
 void
 SubSpace::resize(scalar_t radius)
 {
- unsigned i = 0;
   for ( unsigned i = 0; i < __center.size(); i++ ) {
     __minSub[i] = std::max(__center[i] - (int)radius, 0);
     // +1 because we check for max which is over the end.
@@ -73,7 +71,7 @@ SubSpace::__recalculateSize()
   __minId = __space->getIdFromVector(__minSub);
 
   /* Recalculate radius with actual points inserted. */
-  unsigned radius = 0;
+  scalar_t radius = 0;
   for ( unsigned i = 0; i < __space->getDimensions(); i++ )
     radius += __maxSub[i] - __minSub[i];
   radius /= 2 * __space->getDimensions();
