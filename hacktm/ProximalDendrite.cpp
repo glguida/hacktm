@@ -3,11 +3,9 @@
 #include <cmath>
 #include "HackTMConfig.h"
 #include "ProximalDendrite.h"
-#include "metric/rnd_normal.h"
-#include "metric/Sphere.h"
+#include "rnd_normal.h"
+#include "Space.h"
 
-
-using namespace metric;
 
 namespace HackTM {
 
@@ -28,11 +26,9 @@ namespace HackTM {
   void 
   ProximalDendrite::populatePotentialSynapses(unsigned synapses, unsigned center, unsigned radius)
   {
-    metric::Sphere s(__inputSpace, center, radius);
-    metric::Sphere::random_iterator random_it = s.getNormalDistributionIterator();
-
-    for ( unsigned i = 0; i < synapses; i++, random_it++ )
-      __addSynapse(*random_it, rnd_normal(htmconfig::connectedPerm, 0.1));
+    NormalRandomGenerator nrg(__inputSpace, center, radius);
+    for ( unsigned i = 0; i < synapses; i++ )
+      __addSynapse(nrg(), rnd_normal(htmconfig::connectedPerm, 0.1));
     
     __updateReceptiveFieldSize();
   }
@@ -101,30 +97,29 @@ namespace HackTM {
   {
     syn->perm = std::max(0.0f, syn->perm - htmconfig::permanenceDec);
   }
-}
-
-namespace std {
-
-  vector<unsigned> operator-=(vector<unsigned> &LHS, vector<unsigned> &RHS)
-  {
-    for ( unsigned i = 0; i < LHS.size(); i++ )
-      LHS[i] -= RHS[i];
-    return LHS;
-  }
-
-}
-
-namespace HackTM {
+  
+  static struct synapseToId {
+    id_t operator()(struct synapse *s) {
+      return s->id;
+    };
+  } syn2id;
 
   void
   ProximalDendrite::__updateReceptiveFieldSize()
   {
-    Vector min, max;
+    SubSpace sub(__inputSpace, 0, 0);
+    __receptiveFieldSize = sub.collect(connectedBegin(), connectedEnd(), syn2id);
+#if 0
+    /* The Receptive Field radius is approximated with 1/2 of the
+       average of the edges of the smallest subspace (defined by two
+       vectors, min and max) containing all the connections of this
+       dendrite to the input space. */
     for ( synapse_iterator it = connectedBegin(); it != connectedEnd(); it++ ) {
-      __inputSpace->accumulateMinCoordinates(min, (*it)->id);
-      __inputSpace->accumulateMaxCoordinates(max, (*it)->id);
+      __inputSpace->accumulateMinMaxCoordinates(min, max, (*it)->id);
     }
-    __receptiveFieldSize = (max - min).max();
+    __receptiveFieldSize = (max -= min).sum() / (2 *max.size());
+#endif
+
   }
 
-};
+}

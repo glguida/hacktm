@@ -1,18 +1,16 @@
-
 #include "Region.h"
+#include "Space.h"
 
-using namespace metric;
 using namespace HackTM;
 
 main()
 {
-  EuclideanDist dist;
-  Vector input(1000,2);
+  Vector input(2, 1000);
   Vector col(2);
   col[0] = 20;
   col[1] = 30;
 
-  MetricSpace inputSpace(&input, dist), columnSpace(&col, dist);
+  Space inputSpace(input), columnSpace(col);
   Region r(&inputSpace, &columnSpace);
 
   for ( Region::column_iterator it = r.columns.begin(); it != r.columns.end(); it++ ) {
@@ -22,7 +20,8 @@ main()
     for ( synit = c->proximalDendrite->potentialBegin(); 
 	  synit != c->proximalDendrite->potentialEnd();
 	  synit++ ) {
-      Vector v = inputSpace.getVectorFromId((*synit)->id);
+      Vector v( inputSpace.getDimensions() );
+      inputSpace.setVectorFromId((*synit)->id, v);
       std::cout << v[0] << " " << v[1] << " " << (*synit)->perm << std::endl;
     }
 

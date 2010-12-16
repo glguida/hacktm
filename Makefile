@@ -39,10 +39,10 @@ RM = "/Applications/CMake 2.8-0.app/Contents/bin/cmake" -E remove -f
 CMAKE_EDIT_COMMAND = "/Applications/CMake 2.8-0.app/Contents/bin/ccmake"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/gianluca/ml/htmp/HpedanTM/new
+CMAKE_SOURCE_DIR = /Users/gianluca/mysrc/hacktm
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/gianluca/ml/htmp/HpedanTM/new
+CMAKE_BINARY_DIR = /Users/gianluca/mysrc/hacktm
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/ml/htmp/HpedanTM/new/CMakeFiles /Users/gianluca/ml/htmp/HpedanTM/new/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/mysrc/hacktm/CMakeFiles /Users/gianluca/mysrc/hacktm/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/ml/htmp/HpedanTM/new/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/mysrc/hacktm/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -108,21 +108,8 @@ HackTM: cmake_check_build_system
 
 # fast build rule for target.
 HackTM/fast:
-	$(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/build
+	$(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/build
 .PHONY : HackTM/fast
-
-#=============================================================================
-# Target rules for targets named metric
-
-# Build rule for target.
-metric: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 metric
-.PHONY : metric
-
-# fast build rule for target.
-metric/fast:
-	$(MAKE) -f metric/CMakeFiles/metric.dir/build.make metric/CMakeFiles/metric.dir/build
-.PHONY : metric/fast
 
 #=============================================================================
 # Target rules for targets named benchNode
@@ -151,19 +138,6 @@ testMM/fast:
 .PHONY : testMM/fast
 
 #=============================================================================
-# Target rules for targets named testMisc
-
-# Build rule for target.
-testMisc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testMisc
-.PHONY : testMisc
-
-# fast build rule for target.
-testMisc/fast:
-	$(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/build
-.PHONY : testMisc/fast
-
-#=============================================================================
 # Target rules for targets named testNode
 
 # Build rule for target.
@@ -189,19 +163,6 @@ testRegion/fast:
 	$(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/build
 .PHONY : testRegion/fast
 
-#=============================================================================
-# Target rules for targets named testSphere
-
-# Build rule for target.
-testSphere: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testSphere
-.PHONY : testSphere
-
-# fast build rule for target.
-testSphere/fast:
-	$(MAKE) -f tests/CMakeFiles/testSphere.dir/build.make tests/CMakeFiles/testSphere.dir/build
-.PHONY : testSphere/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -211,13 +172,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... HackTM"
-	@echo "... metric"
 	@echo "... benchNode"
 	@echo "... testMM"
-	@echo "... testMisc"
 	@echo "... testNode"
 	@echo "... testRegion"
-	@echo "... testSphere"
 .PHONY : help
 
 

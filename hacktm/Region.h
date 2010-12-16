@@ -3,16 +3,14 @@
 
 #include <list>
 #include <vector>
-#include "metric/MappingFunction.h"
-#include "metric/MetricSpace.h"
-#include "metric/Sphere.h"
+#include "Space.h"
 #include "Column.h"
 
 namespace HackTM {
 
   class Region {
   public:
-    Region(const metric::MetricSpace *inputspace, const metric::MetricSpace *columnspace);
+    Region(const Space *inputspace, const Space *columnspace);
     ~Region();
 
     void updateColumnsOverlap(const BitVector &input);
@@ -21,20 +19,20 @@ namespace HackTM {
 
     inline void setInhibitionRadius(unsigned r) { __inhibitionRadius = r; };
 
-    inline const MetricSpace *getInputSpace() const {
+    inline const Space *getInputSpace() const {
       return __inputSpace;
     }
-    inline const MetricSpace *getColumnSpace() const {
+    inline const Space *getColumnSpace() const {
       return __columnSpace;
     }
     inline unsigned getColumnInputCenter(Column *c) const {
-      return __inputToColumn->getInputIdFromOutput(c->getId());
+      return __inputToColumn->transformIdBackward(c->getId());
     }
     inline unsigned scaleRadiusFromColumnSpace(unsigned value) const { 
-      return __inputToColumn->scaleOutputValueWithMaxRatio(value);
+      return __inputToColumn->transformScalarBackward(value);
     }
     inline unsigned scaleRadiusToColumnSpace(unsigned value) const {
-      return __inputToColumn->scaleInputValueWithMaxRatio(value);
+      return __inputToColumn->transformScalarForward(value);
     }
 
     typedef std::vector<Column *>::iterator column_iterator;
@@ -44,12 +42,12 @@ namespace HackTM {
 
   private:
     void __connectColumnsToInput();
-    unsigned kthScore(metric::Sphere::iterator, metric::Sphere::iterator, unsigned);
+    unsigned kthScore(SubSpace &neighbors, unsigned);
 
     unsigned __inhibitionRadius;
-    const metric::MetricSpace *__inputSpace;
-    const metric::MetricSpace *__columnSpace;
-    const metric::MappingFunction *__inputToColumn;
+    const Space *__inputSpace;
+    const Space *__columnSpace;
+    const SpaceTransform *__inputToColumn;
   };
 
 };

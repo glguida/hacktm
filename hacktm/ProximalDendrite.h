@@ -2,7 +2,7 @@
 #define __HACKTM_PROXIMAL_DENDRITES_H__
 
 #include <list>
-#include "metric/MetricSpace.h"
+#include "Space.h"
 #include "BitVector.h"
 
 namespace HackTM {
@@ -14,7 +14,7 @@ namespace HackTM {
 
   class ProximalDendrite {
   public:
-    ProximalDendrite(const metric::MetricSpace *inputspace)
+    ProximalDendrite(const Space *inputspace)
       : __inputSpace(inputspace) {}
     ~ProximalDendrite();
 
@@ -43,7 +43,7 @@ namespace HackTM {
     unsigned __receptiveFieldSize;
     void __updateReceptiveFieldSize();
 
-    const metric::MetricSpace *__inputSpace;
+    const Space *__inputSpace;
 
     std::list<struct synapse *> __connectedSynapses;
     std::list<struct synapse *> __potentialSynapses;

@@ -39,10 +39,10 @@ RM = "/Applications/CMake 2.8-0.app/Contents/bin/cmake" -E remove -f
 CMAKE_EDIT_COMMAND = "/Applications/CMake 2.8-0.app/Contents/bin/ccmake"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/gianluca/ml/htmp/HpedanTM/new
+CMAKE_SOURCE_DIR = /Users/gianluca/mysrc/hacktm
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/gianluca/ml/htmp/HpedanTM/new
+CMAKE_BINARY_DIR = /Users/gianluca/mysrc/hacktm
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/ml/htmp/HpedanTM/new/CMakeFiles /Users/gianluca/ml/htmp/HpedanTM/new/HackTM/CMakeFiles/progress.marks
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 HackTM/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/ml/htmp/HpedanTM/new/CMakeFiles 0
+	cd /Users/gianluca/mysrc/hacktm && $(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/mysrc/hacktm/CMakeFiles /Users/gianluca/mysrc/hacktm/hacktm/CMakeFiles/progress.marks
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 hacktm/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/mysrc/hacktm/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 HackTM/clean
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 hacktm/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,92 +85,122 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 HackTM/preinstall
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 hacktm/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 HackTM/preinstall
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 hacktm/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/gianluca/mysrc/hacktm && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-HackTM/CMakeFiles/HackTM.dir/rule:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 HackTM/CMakeFiles/HackTM.dir/rule
-.PHONY : HackTM/CMakeFiles/HackTM.dir/rule
+hacktm/CMakeFiles/HackTM.dir/rule:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 hacktm/CMakeFiles/HackTM.dir/rule
+.PHONY : hacktm/CMakeFiles/HackTM.dir/rule
 
 # Convenience name for target.
-HackTM: HackTM/CMakeFiles/HackTM.dir/rule
+HackTM: hacktm/CMakeFiles/HackTM.dir/rule
 .PHONY : HackTM
 
 # fast build rule for target.
 HackTM/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/build
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/build
 .PHONY : HackTM/fast
 
 # target to build an object file
 Column.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/Column.o
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Column.o
 .PHONY : Column.o
 
 # target to preprocess a source file
 Column.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/Column.i
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Column.i
 .PHONY : Column.i
 
 # target to generate assembly for a file
 Column.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/Column.s
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Column.s
 .PHONY : Column.s
 
 # target to build an object file
-HTMFUNCTIONS.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/HTMFUNCTIONS.o
-.PHONY : HTMFUNCTIONS.o
+HTMFunctions.o:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/HTMFunctions.o
+.PHONY : HTMFunctions.o
 
 # target to preprocess a source file
-HTMFUNCTIONS.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/HTMFUNCTIONS.i
-.PHONY : HTMFUNCTIONS.i
+HTMFunctions.i:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/HTMFunctions.i
+.PHONY : HTMFunctions.i
 
 # target to generate assembly for a file
-HTMFUNCTIONS.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/HTMFUNCTIONS.s
-.PHONY : HTMFUNCTIONS.s
+HTMFunctions.s:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/HTMFunctions.s
+.PHONY : HTMFunctions.s
 
 # target to build an object file
 ProximalDendrite.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/ProximalDendrite.o
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/ProximalDendrite.o
 .PHONY : ProximalDendrite.o
 
 # target to preprocess a source file
 ProximalDendrite.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/ProximalDendrite.i
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/ProximalDendrite.i
 .PHONY : ProximalDendrite.i
 
 # target to generate assembly for a file
 ProximalDendrite.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/ProximalDendrite.s
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/ProximalDendrite.s
 .PHONY : ProximalDendrite.s
 
 # target to build an object file
 Region.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/Region.o
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Region.o
 .PHONY : Region.o
 
 # target to preprocess a source file
 Region.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/Region.i
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Region.i
 .PHONY : Region.i
 
 # target to generate assembly for a file
 Region.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f HackTM/CMakeFiles/HackTM.dir/build.make HackTM/CMakeFiles/HackTM.dir/Region.s
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Region.s
 .PHONY : Region.s
+
+# target to build an object file
+Space.o:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Space.o
+.PHONY : Space.o
+
+# target to preprocess a source file
+Space.i:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Space.i
+.PHONY : Space.i
+
+# target to generate assembly for a file
+Space.s:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/Space.s
+.PHONY : Space.s
+
+# target to build an object file
+rnd_normal.o:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/rnd_normal.o
+.PHONY : rnd_normal.o
+
+# target to preprocess a source file
+rnd_normal.i:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/rnd_normal.i
+.PHONY : rnd_normal.i
+
+# target to generate assembly for a file
+rnd_normal.s:
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f hacktm/CMakeFiles/HackTM.dir/build.make hacktm/CMakeFiles/HackTM.dir/rnd_normal.s
+.PHONY : rnd_normal.s
 
 # Help Target
 help:
@@ -184,15 +214,21 @@ help:
 	@echo "... Column.o"
 	@echo "... Column.i"
 	@echo "... Column.s"
-	@echo "... HTMFUNCTIONS.o"
-	@echo "... HTMFUNCTIONS.i"
-	@echo "... HTMFUNCTIONS.s"
+	@echo "... HTMFunctions.o"
+	@echo "... HTMFunctions.i"
+	@echo "... HTMFunctions.s"
 	@echo "... ProximalDendrite.o"
 	@echo "... ProximalDendrite.i"
 	@echo "... ProximalDendrite.s"
 	@echo "... Region.o"
 	@echo "... Region.i"
 	@echo "... Region.s"
+	@echo "... Space.o"
+	@echo "... Space.i"
+	@echo "... Space.s"
+	@echo "... rnd_normal.o"
+	@echo "... rnd_normal.i"
+	@echo "... rnd_normal.s"
 .PHONY : help
 
 
@@ -204,6 +240,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/gianluca/mysrc/hacktm && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

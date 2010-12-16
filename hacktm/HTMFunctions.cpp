@@ -13,7 +13,7 @@ namespace HackTM {
     unsigned long long avg = 0; // No overflow check.
     for ( Region::column_iterator it = r->columns.begin(); it != r->columns.end(); it++ )
       avg += (*it)->proximalDendrite->getReceptiveFieldSize();
-    return avg / r->getColumnSpace()->size();
+    return avg / r->getColumnSpace()->getSize();
   }
 
   void

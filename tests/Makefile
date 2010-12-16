@@ -39,10 +39,10 @@ RM = "/Applications/CMake 2.8-0.app/Contents/bin/cmake" -E remove -f
 CMAKE_EDIT_COMMAND = "/Applications/CMake 2.8-0.app/Contents/bin/ccmake"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/gianluca/ml/htmp/HpedanTM/new
+CMAKE_SOURCE_DIR = /Users/gianluca/mysrc/hacktm
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/gianluca/ml/htmp/HpedanTM/new
+CMAKE_BINARY_DIR = /Users/gianluca/mysrc/hacktm
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/ml/htmp/HpedanTM/new/CMakeFiles /Users/gianluca/ml/htmp/HpedanTM/new/tests/CMakeFiles/progress.marks
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/ml/htmp/HpedanTM/new/CMakeFiles 0
+	cd /Users/gianluca/mysrc/hacktm && $(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/mysrc/hacktm/CMakeFiles /Users/gianluca/mysrc/hacktm/tests/CMakeFiles/progress.marks
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gianluca/mysrc/hacktm/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/clean
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/gianluca/mysrc/hacktm && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 tests/CMakeFiles/benchNode.dir/rule:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/benchNode.dir/rule
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/benchNode.dir/rule
 .PHONY : tests/CMakeFiles/benchNode.dir/rule
 
 # Convenience name for target.
@@ -109,12 +109,12 @@ benchNode: tests/CMakeFiles/benchNode.dir/rule
 
 # fast build rule for target.
 benchNode/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/build
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/build
 .PHONY : benchNode/fast
 
 # Convenience name for target.
 tests/CMakeFiles/testMM.dir/rule:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testMM.dir/rule
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testMM.dir/rule
 .PHONY : tests/CMakeFiles/testMM.dir/rule
 
 # Convenience name for target.
@@ -123,26 +123,12 @@ testMM: tests/CMakeFiles/testMM.dir/rule
 
 # fast build rule for target.
 testMM/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/build
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/build
 .PHONY : testMM/fast
 
 # Convenience name for target.
-tests/CMakeFiles/testMisc.dir/rule:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testMisc.dir/rule
-.PHONY : tests/CMakeFiles/testMisc.dir/rule
-
-# Convenience name for target.
-testMisc: tests/CMakeFiles/testMisc.dir/rule
-.PHONY : testMisc
-
-# fast build rule for target.
-testMisc/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/build
-.PHONY : testMisc/fast
-
-# Convenience name for target.
 tests/CMakeFiles/testNode.dir/rule:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testNode.dir/rule
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testNode.dir/rule
 .PHONY : tests/CMakeFiles/testNode.dir/rule
 
 # Convenience name for target.
@@ -151,12 +137,12 @@ testNode: tests/CMakeFiles/testNode.dir/rule
 
 # fast build rule for target.
 testNode/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/build
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/build
 .PHONY : testNode/fast
 
 # Convenience name for target.
 tests/CMakeFiles/testRegion.dir/rule:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testRegion.dir/rule
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testRegion.dir/rule
 .PHONY : tests/CMakeFiles/testRegion.dir/rule
 
 # Convenience name for target.
@@ -165,112 +151,68 @@ testRegion: tests/CMakeFiles/testRegion.dir/rule
 
 # fast build rule for target.
 testRegion/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/build
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/build
 .PHONY : testRegion/fast
-
-# Convenience name for target.
-tests/CMakeFiles/testSphere.dir/rule:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/testSphere.dir/rule
-.PHONY : tests/CMakeFiles/testSphere.dir/rule
-
-# Convenience name for target.
-testSphere: tests/CMakeFiles/testSphere.dir/rule
-.PHONY : testSphere
-
-# fast build rule for target.
-testSphere/fast:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testSphere.dir/build.make tests/CMakeFiles/testSphere.dir/build
-.PHONY : testSphere/fast
 
 # target to build an object file
 benchNode.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.o
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.o
 .PHONY : benchNode.o
 
 # target to preprocess a source file
 benchNode.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.i
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.i
 .PHONY : benchNode.i
 
 # target to generate assembly for a file
 benchNode.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.s
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/benchNode.dir/build.make tests/CMakeFiles/benchNode.dir/benchNode.s
 .PHONY : benchNode.s
 
 # target to build an object file
-test.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/test.o
-.PHONY : test.o
-
-# target to preprocess a source file
-test.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/test.i
-.PHONY : test.i
-
-# target to generate assembly for a file
-test.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMisc.dir/build.make tests/CMakeFiles/testMisc.dir/test.s
-.PHONY : test.s
-
-# target to build an object file
 testMM.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.o
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.o
 .PHONY : testMM.o
 
 # target to preprocess a source file
 testMM.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.i
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.i
 .PHONY : testMM.i
 
 # target to generate assembly for a file
 testMM.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.s
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testMM.dir/build.make tests/CMakeFiles/testMM.dir/testMM.s
 .PHONY : testMM.s
 
 # target to build an object file
 testNode.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.o
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.o
 .PHONY : testNode.o
 
 # target to preprocess a source file
 testNode.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.i
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.i
 .PHONY : testNode.i
 
 # target to generate assembly for a file
 testNode.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.s
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testNode.dir/build.make tests/CMakeFiles/testNode.dir/testNode.s
 .PHONY : testNode.s
 
 # target to build an object file
 testRegion.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/testRegion.o
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/testRegion.o
 .PHONY : testRegion.o
 
 # target to preprocess a source file
 testRegion.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/testRegion.i
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/testRegion.i
 .PHONY : testRegion.i
 
 # target to generate assembly for a file
 testRegion.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/testRegion.s
+	cd /Users/gianluca/mysrc/hacktm && $(MAKE) -f tests/CMakeFiles/testRegion.dir/build.make tests/CMakeFiles/testRegion.dir/testRegion.s
 .PHONY : testRegion.s
-
-# target to build an object file
-testSphere.o:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testSphere.dir/build.make tests/CMakeFiles/testSphere.dir/testSphere.o
-.PHONY : testSphere.o
-
-# target to preprocess a source file
-testSphere.i:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testSphere.dir/build.make tests/CMakeFiles/testSphere.dir/testSphere.i
-.PHONY : testSphere.i
-
-# target to generate assembly for a file
-testSphere.s:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(MAKE) -f tests/CMakeFiles/testSphere.dir/build.make tests/CMakeFiles/testSphere.dir/testSphere.s
-.PHONY : testSphere.s
 
 # Help Target
 help:
@@ -282,16 +224,11 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... testMM"
-	@echo "... testMisc"
 	@echo "... testNode"
 	@echo "... testRegion"
-	@echo "... testSphere"
 	@echo "... benchNode.o"
 	@echo "... benchNode.i"
 	@echo "... benchNode.s"
-	@echo "... test.o"
-	@echo "... test.i"
-	@echo "... test.s"
 	@echo "... testMM.o"
 	@echo "... testMM.i"
 	@echo "... testMM.s"
@@ -301,9 +238,6 @@ help:
 	@echo "... testRegion.o"
 	@echo "... testRegion.i"
 	@echo "... testRegion.s"
-	@echo "... testSphere.o"
-	@echo "... testSphere.i"
-	@echo "... testSphere.s"
 .PHONY : help
 
 
@@ -315,6 +249,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/gianluca/ml/htmp/HpedanTM/new && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/gianluca/mysrc/hacktm && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

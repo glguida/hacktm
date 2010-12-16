@@ -4,3 +4,4 @@ cmake_install.cmake
 .depend
 *~
 attic
+*.a

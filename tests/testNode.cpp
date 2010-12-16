@@ -1,19 +1,15 @@
 #include "BitVector.h"
-#include "metric/Vector.h"
-#include "metric/DistanceFunctions.h"
 #include "Region.h"
 #include "HTMFunctions.h"
 
-using namespace metric;
 using namespace HackTM;
 
 main()
 {
-  EuclideanDist dist;
-  Vector input(1000,2);
-  Vector columns(30,2);
-  MetricSpace inputSpace(&input, dist);
-  MetricSpace columnSpace(&columns, dist);
+  Vector input(2, 1000);
+  Vector columns(2,30);
+  Space inputSpace(input);
+  Space columnSpace(columns);
 
   std::cout << "Initializing...";
 
@@ -21,21 +17,21 @@ main()
 
   spatialPoolerInit(&n);
 
-  BitVector diagonalL(inputSpace.size());
+  BitVector diagonalL(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
     diagonalL.set(i * 1000 + i);
   }
-  BitVector diagonalR(inputSpace.size());
+  BitVector diagonalR(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
     diagonalR.set(i * 1000 + (999 - i));
   }
-  BitVector ddiag(inputSpace.size());
+  BitVector ddiag(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
     ddiag.set(i * 1000 + (999 - i));
     ddiag.set(i * 1000 + i);
   }
 
-  BitVector black(inputSpace.size());
+  BitVector black(inputSpace.getSize());
   black.set();
 
   std::cout << "done." << std::endl;

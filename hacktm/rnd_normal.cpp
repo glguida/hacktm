@@ -1,5 +1,5 @@
-/* Poor Man's Gaussians. */
-#include <stdlib.h>
+/* Poor Man's Gaussians. Don't take this too seriously. */
+#include <cstdlib>
 #define SUMS 4
 
 int

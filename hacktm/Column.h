@@ -3,8 +3,6 @@
 
 #include "ProximalDendrite.h"
 
-using namespace metric;
-
 namespace HackTM {
 
   class Column {
