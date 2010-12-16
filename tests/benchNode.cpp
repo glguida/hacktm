@@ -1,12 +1,23 @@
+#include <ctime>
+
 #include "BitVector.h"
+#include "HackTM.h"
 #include "Space.h"
 #include "Region.h"
 #include "HTMFunctions.h"
 
 using namespace HackTM;
 
+#define NUM 100
+
 main()
 {
+  clock_t c1, c2, c3;
+
+  /* First of all, diable debug flags. */
+  hacktmdebug::DebugFlags = 0;
+
+  c1 = clock();
   Vector input(2, 1000);
   Vector columns(2, 30);
   Space inputSpace(input), columnSpace(columns);
@@ -31,8 +42,8 @@ main()
 
   BitVector black(inputSpace.getSize());
   black.set();
-
-  unsigned id = 100;
+  c2 = clock();
+  unsigned id = NUM;
   while ( id-- > 0 ) {
     switch ( id % 4) {
     case 0 : 
@@ -48,4 +59,11 @@ main()
       spatialPooler(&n, black);
     }
   }
+  c3 = clock();
+
+#define SECONDS(_c)  ((_c)/CLOCKS_PER_SEC)
+#define MSECS(_c)    (((_c) % CLOCKS_PER_SEC)/(CLOCKS_PER_SEC/1000))
+  std::cerr << "Initialization took " << SECONDS(c2 - c1) << " and " << MSECS(c2 - c1) << " milliseconds." << std::endl;
+  std::cerr << "Spatial pooling took " << SECONDS(c3 - c2) << " and " << MSECS(c3 - c2) << " milliseconds for " << NUM 
+	    << " inputs. (avg of " << SECONDS((c3 - c2)/NUM) << "s and " << MSECS((c3-c2)/NUM) << " msecs per operation)." << std::endl;
 }

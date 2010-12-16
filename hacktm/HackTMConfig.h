@@ -28,9 +28,15 @@ namespace htmconfig {
 
 namespace hacktmdebug {
 
-  const bool Debug_PrintSynapses = true;
-  const bool Debug_PrintOverlappingColumns = true;
-  const bool Debug_PrintWinningColumns = true;
+  enum debug {
+    Debug_None = 0,
+    Debug_PrintOverlappingColumns = 1,
+    Debug_PrintWinningColumns = 2,
+    Debug_PrintInhibitionRadius = 4,
+    Debug_All = 0xff
+  };
+
+  extern int DebugFlags;
 
 }
 

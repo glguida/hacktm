@@ -15,12 +15,3 @@ namespace HackTM {
 #include "HackTMConfig.h"
 
 #endif
-#if 0
-#include "Space.h"
-#include "ProximalDendrite.h"
-#include "Column.h"
-#include "Region.h"
-#include "HTMFunctions.h"
-
-#include "rnd_normal.h"
-#endif

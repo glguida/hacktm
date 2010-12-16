@@ -21,7 +21,13 @@ namespace HackTM {
     void inhibitColumns();
     void adjustProximalSynapses(const BitVector &inpu);
 
-    inline void setInhibitionRadius(scalar_t r) { __inhibitionRadius = r; };
+    inline void setInhibitionRadius(scalar_t r)
+    {
+      if ( hacktmdebug::DebugFlags & hacktmdebug::Debug_PrintInhibitionRadius )
+	std::cout << "Inhibition radius: " << r << std::endl;
+
+      __inhibitionRadius = r; 
+    };
 
     inline const Space *getInputSpace() const {
       return __inputSpace;

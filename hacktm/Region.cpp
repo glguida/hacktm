@@ -45,10 +45,10 @@ namespace HackTM {
 
       /* Early exit if the k-sized vector is already full, and we're
 	 lower than the current kth element. */
-      if ( scores.size() >= __k && newscore <= scores[__k] )
+      if ( (scores.size() > __k) && (newscore <= scores[__k]) )
 	return;
 
-      scit = upper_bound(scores.begin(), scores.end(), newscore, std::greater<unsigned>());
+      scit = lower_bound(scores.begin(), scores.end(), newscore, std::greater<unsigned>());
       if ( scit - scores.begin() < __k )
 	scit = scores.insert(scit, newscore);
     }
@@ -71,7 +71,8 @@ namespace HackTM {
     kthScore_closure func(columns); // XXX: Make this object specific.
     func.reset(k);
     neighbors.apply(func);
-    if ( func.scores.size() > k )
+
+    if ( func.scores.size() >= k )
       return func.scores[k - 1];
     else
       return 0;

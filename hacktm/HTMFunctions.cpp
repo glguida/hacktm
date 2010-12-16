@@ -7,6 +7,10 @@
 
 using namespace htmconfig;
 
+namespace hacktmdebug {
+  int DebugFlags = Debug_All;
+}
+
 namespace HackTM {
   scalar_t averageReceptiveFieldSize(Region *r)
   {
@@ -42,14 +46,14 @@ namespace HackTM {
     /* Boost Missing */
     r->setInhibitionRadius(averageReceptiveFieldSize(r));
 
-    if ( 1 || hacktmdebug::Debug_PrintOverlappingColumns ) {
+    if ( hacktmdebug::DebugFlags & hacktmdebug::Debug_PrintOverlappingColumns ) {
       Region::column_iterator it;
       for ( it = r->columns.begin(); it != r->columns.end(); it++ )
 	std::cout << (*it)->getOverlap() << " ";
       std::cout << std::endl;
     }
 
-    if ( 1 || hacktmdebug::Debug_PrintWinningColumns ) {
+    if ( hacktmdebug::DebugFlags & hacktmdebug::Debug_PrintWinningColumns ) {
       Region::activecol_iterator it;
       std::cout << "And the winners are:\n";
       for ( it = r->activeColumns.begin(); it != r->activeColumns.end(); it++ ) {
