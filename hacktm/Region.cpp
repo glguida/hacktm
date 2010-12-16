@@ -42,6 +42,12 @@ namespace HackTM {
     void operator()(id_t id)
     {
       unsigned newscore = __columns[id]->getOverlap();
+
+      /* Early exit if the k-sized vector is already full, and we're
+	 lower than the current kth element. */
+      if ( scores.size() >= __k && newscore <= scores[__k] )
+	return;
+
       scit = upper_bound(scores.begin(), scores.end(), newscore, std::greater<unsigned>());
       if ( scit - scores.begin() < __k )
 	scit = scores.insert(scit, newscore);
