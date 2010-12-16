@@ -27,9 +27,18 @@ namespace HackTM {
   ProximalDendrite::populatePotentialSynapses(unsigned synapses, id_t center, scalar_t radius)
   {
     NormalRandomGenerator nrg(__inputSpace, center, radius);
-    for ( unsigned i = 0; i < synapses; i++ )
+    BitVector synapseMap(__inputSpace->getSize());
+    for ( unsigned i = 0; i < synapses; i++ ) {
+      id_t random;
+
+      /* Ensure that we get unique IDs from the NRG. */
+      do {
+	random = nrg();
+      } while ( synapseMap.test(random) == true );
+      synapseMap.set(random);
+      
       __addSynapse(nrg(), rnd_normal(htmconfig::connectedPerm, 0.1));
-    
+    }
     __updateReceptiveFieldSize();
   }
 
