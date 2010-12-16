@@ -14,6 +14,9 @@ namespace HackTM {
     Region(const Space *inputspace, const Space *columnspace);
     ~Region();
 
+    /* The interface to this class is very open, as it is useful for
+       client code to inspect what is going on. */
+
     void updateColumnsOverlap(const BitVector &input);
     void inhibitColumns();
     void adjustProximalSynapses(const BitVector &inpu);

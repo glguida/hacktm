@@ -4,8 +4,8 @@
 #include "HackTM.h"
 
 namespace HackTM {
-  void spatialPooler(Region *r, const BitVector &input);
   void spatialPoolerInit(Region *r);
+  void spatialPooler(Region *r, const BitVector &input);
 }
 
 #endif

@@ -23,19 +23,6 @@ namespace htmconfig {
 
 
 /*
- * Local modification to the algorithms (previously known as hacks or heresies)
- */
-
-#define OPT_PROPRECFIELD 	1L
-#define OPT_OVERLAPINHIB	2L
-
-#ifdef NUMENTA_STRICT
-#define OPTIONS 0
-#else
-#define OPTIONS (0x3)
-#endif
-
-/*
  * Debug and printout controls.
  */
 

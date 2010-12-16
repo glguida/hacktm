@@ -9,6 +9,20 @@
 
 namespace HackTM {
 
+  /*
+   * Space.
+   *
+   * This class defines a space, which can be of any dimension, and
+   * most importantly provides function to map this euclidean,
+   * n-dimensional space to a one-dimensional space (read bitmap)
+   * defined by id_t.
+   * The advantage of this class is that it lets the client to handle
+   * object in multiple dimension without the hassle of handling
+   * vectors. Whose vectors, btw, would tend to easily stress the
+   * already sensible C++ allocator, so this implementation gives also
+   * a noticeable performance gain.
+   */
+
   class Space {
   public:
     Space(const Vector &max);
@@ -47,6 +61,18 @@ namespace HackTM {
     const unsigned __dimensions;
   };
 
+
+  /*
+   * SubSpace class.
+   *
+   * This class provides functions to operate on a subspace (defined
+   * by a center and a radius) of a space. It actually provides you
+   * the n-Cube, so the radius is the minimal distance between the
+   * center and the sides, for the euclidean minds. If you accept the
+   * Infinite Norm distance, though, you can assume it's a
+   * sphere. :-) 
+   */
+
   class SubSpace {
   public:
     SubSpace(const Space *space, id_t center, scalar_t radius);
@@ -58,6 +84,11 @@ namespace HackTM {
     inline coord_t getMaxCoord(int i) const { return __maxSub[i]; }
     inline const Space *getSpace() const { return __space; }
 
+    /*
+     * Apply:
+     *
+     * Applies function "F(id_t) to every Id of the subspace.
+     */
 
     template <class F>
     void apply(F &func)
@@ -76,6 +107,14 @@ namespace HackTM {
 	id += getSpace()->getIdProjectorValue(dim);
       }
     }
+
+    /* collect
+     *
+     * Given a set of Ids (through an iterator and a function
+     * that returns Ids from the iterator value) it sets the current
+     * subspace as the smallest subspace that contains all the points
+     * collected until now yet not smaller than the current size. 
+     */
 
     template <class T, class F>
     scalar_t collect(T begin, T end, F &func)
@@ -107,12 +146,19 @@ namespace HackTM {
     const Space *__space;
   };
 
+  /*
+   * Normal Random Generator class.
+   *
+   * This class is a container for Pseudo -- look at rnd_normal.h and
+   * laugh for yourself -- Normal Random vectors (in form of Ids) that
+   * range in a certain radius from a center.
+   */
+
   class NormalRandomGenerator {
   public:
     NormalRandomGenerator(const Space *space, id_t center, scalar_t radius)
       : __r(radius), __space(space), __center(space->getDimensions())
     { 
-      __center = Vector(space->getDimensions());
       __space->setVectorFromId(center, __center); 
     }
     id_t operator()() const;
@@ -122,46 +168,21 @@ namespace HackTM {
     const Space *__space;
   };
 
+
+  /*
+   * Space Transformation class.
+   *
+   * This function creates a mapping (with some easily fixable limits)
+   * between two different spaces, and provides functions to map
+   * vectors (in form of Ids) and scalars into each other.
+   */
+
   class SpaceTransform {
   public:
-    SpaceTransform(const Space *x, const Space *y)
-      : __inputSpace(x), __outputSpace(y), __inOutRatios(x->getDimensions())
-    {
-      assert ( x->getDimensions() == y->getDimensions() );
-      assert ( x > y && "Time to generalize this class. It's easy." );
- 
-      for ( unsigned i = 0; i < x->getDimensions(); i++ )
-	__inOutRatios[i] = x->getMaxCoord(i) / y->getMaxCoord(i);
-      
-      __maxRatio = *std::max_element(__inOutRatios.begin(), __inOutRatios.end());
-    }
+    SpaceTransform(const Space *x, const Space *y);
 
-    //    Vector &transformVectorForward(const Vector &iv, Vector &ov);
-    //    Vector &transformVectorBackward(const Vector &iv, Vector &ov);
-
-    id_t transformIdForward(id_t iid) const {
-      id_t oid = 0;
-      for ( unsigned i = 0; i < __inputSpace->getDimensions(); i++ ) {
-	coord_t icoord = __inputSpace->getCoord(iid, i);
-	coord_t ocoord = icoord / __inOutRatios[i];
-	oid += ocoord * __outputSpace->getIdProjectorValue(i);
-      }
-      assert ( __outputSpace->contains(oid) );
-      return oid;
-    }
-
-    id_t transformIdBackward(id_t oid) const
-    {
-      id_t iid = 0;
-      for ( unsigned i = 0; i < __inputSpace->getDimensions(); i++ ) {
-	coord_t ocoord = __outputSpace->getCoord(oid, i);
-	// Add 1/2 of the ratio to be at the center of the interval.
-	coord_t icoord = ocoord * __inOutRatios[i] + (__inOutRatios[i] / 2);
-	iid += icoord * __inputSpace->getIdProjectorValue(i);
-      }
-      assert (__inputSpace->contains(iid) );
-      return iid;
-    }
+    id_t transformIdForward(id_t iid) const;
+    id_t transformIdBackward(id_t oid) const;
 
     inline scalar_t transformScalarForward(scalar_t ival) const
     {
