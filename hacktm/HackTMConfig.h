@@ -4,39 +4,33 @@
 namespace htmconfig {
 
   /* The minimum permanence value at which a synapse is considered "connected" */
-  const float connectedPerm = 0.2;
+  extern float connectedPerm;
 
   /* Amount pf permanence value synapse are incremented/decremented during learning. */
-  const float permanenceInc = 0.05;
-  const float permanenceDec = 0.05;
+  extern float permanenceInc;
+  extern float permanenceDec;
 
   /* Minimum number of inputs that must be active for the column to be
      considered in Inhibition phase. */
-  const unsigned minOverlap = 3;
+  extern unsigned minOverlap;
 
 
   /* A parameter controlling the number of columns that will be
      winners after the inhibition step. */
-  const unsigned desiredLocalActivity = 10;
+  extern unsigned desiredLocalActivity;
 
-}
+  /* 
+   *HackTM Specific Configuration. 
+   */
+  
+  /* This parameter controls the area where covered by the proximal
+     dendrite. It is the radius of a sphere in the column space. The
+     potential syapses of the column will overlap the input space of
+     the columns included in the sphere. */
+  extern unsigned radialOverlapping;
 
-
-/*
- * Debug and printout controls.
- */
-
-namespace hacktmdebug {
-
-  enum debug {
-    Debug_None = 0,
-    Debug_PrintOverlappingColumns = 1,
-    Debug_PrintWinningColumns = 2,
-    Debug_PrintInhibitionRadius = 4,
-    Debug_All = 0xff
-  };
-
-  extern int DebugFlags;
+  /* The number of synapses in each Proximal Dendrite. */
+  extern unsigned proximalSynapses;
 
 }
 

@@ -1,64 +1,42 @@
-#ifndef __HACKTM_REGION__
-#define __HACKTM_REGION__
+#ifndef __HACKTM_SPATIALPOOLER__
+#define __HACKTM_SPATIALPOOLER__
 
 #include <list>
 #include <vector>
 #include <iostream>
 
 #include "HackTM.h"
-#include "Column.h"
+#include "Space.h"
+#include "ProximalDendrite.h"
+#include "BitVector.h"
 
 namespace HackTM {
 
-  class Region {
+  class SpatialPooler {
   public:
-    Region(const Space *inputspace, const Space *columnspace);
-    ~Region();
+    SpatialPooler(const Space *inputspace, const Space *columnspace);
+    ~SpatialPooler();
 
-    /* The interface to this class is very open, as it is useful for
-       client code to inspect what is going on. */
-
-    void updateColumnsOverlap(const BitVector &input);
-    void inhibitColumns();
-    void adjustProximalSynapses(const BitVector &inpu);
-
-    inline void setInhibitionRadius(scalar_t r)
-    {
-      if ( hacktmdebug::DebugFlags & hacktmdebug::Debug_PrintInhibitionRadius )
-	std::cout << "Inhibition radius: " << r << std::endl;
-
-      __inhibitionRadius = r; 
-    };
-
-    inline const Space *getInputSpace() const {
-      return __inputSpace;
-    }
-    inline const Space *getColumnSpace() const {
-      return __columnSpace;
-    }
-    inline id_t getColumnInputCenter(Column *c) const {
-      return __inputToColumn->transformIdBackward(c->getId());
-    }
-    inline scalar_t scaleRadiusFromColumnSpace(scalar_t value) const { 
-      return __inputToColumn->transformScalarBackward(value);
-    }
-    inline scalar_t scaleRadiusToColumnSpace(scalar_t value) const {
-      return __inputToColumn->transformScalarForward(value);
-    }
-
-    typedef std::vector<Column *>::iterator column_iterator;
-    std::vector<Column *>columns;
-    typedef std::list<Column *>::iterator activecol_iterator;
-    std::list<Column *>activeColumns;
+    void run(const BitVector &input, BitVector &actColumns);
+    void updateColumnsOverlap(const BitVector&);
+    void inhibitColumns(const BitVector&, BitVector&);
 
   private:
-    void __connectColumnsToInput();
-    unsigned kthScore(SubSpace &neighbors, unsigned);
+    void     __initDendrites();
+    scalar_t __avgReceptiveFieldSize();
+    id_t     __getColumnInputCenter(id_t id) const;
+    scalar_t __scaleRadiusFromColumnSpace(scalar_t value) const;
+    scalar_t __scaleRadiusToColumnSpace(scalar_t value) const;
+    unsigned __kthScore(SubSpace &neighbors, unsigned);
 
-    scalar_t __inhibitionRadius;
-    const Space *__inputSpace;
-    const Space *__columnSpace;
-    const SpaceTransform *__inputToColumn;
+
+
+    scalar_t              __inhibitionRadius;
+    unsigned              *__columnsOverlap;
+    ProximalDendrite      *__dendrites;    
+    const Space           *__inputSpace;
+    const Space           *__columnSpace;
+    const SpaceTransform  *__inputToColumn;
   };
 
 };

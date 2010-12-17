@@ -1,56 +1,122 @@
 #include <cmath>
 #include <cassert>
+#include <iostream>
 
 #include "HackTM.h"
-#include "Region.h"
+#include "SpatialPooler.h"
+#include "BitVector.h"
 
 namespace HackTM {
 
-  Region::Region(const Space *inputspace, const Space *columnspace)
-    : __inputSpace(inputspace), __columnSpace(columnspace), __inhibitionRadius(0)
+  SpatialPooler::SpatialPooler(const Space *inputspace, 
+			       const Space *columnspace)
+    : __inputSpace(inputspace), __columnSpace(columnspace)
   {
     __inputToColumn = new SpaceTransform(inputspace, columnspace);
+    __dendrites = new ProximalDendrite[__columnSpace->getSize()];
+    __columnsOverlap = new unsigned[ __columnSpace->getSize() ];
+    __initDendrites();
 
-    /* Create Columns */
-    for ( unsigned i = 0; i < __columnSpace->getSize(); i++ )
-      columns.push_back(new Column(i));
-
-    __connectColumnsToInput();
+    __inhibitionRadius = __avgReceptiveFieldSize();
   }
 
-  Region::~Region()
+  SpatialPooler::~SpatialPooler()
   {
     delete __inputToColumn;
-
-    for ( column_iterator it = columns.begin(); it != columns.end(); it++ )
-      delete (*it);
+    delete [] __dendrites;
+    delete [] __columnsOverlap;
   }
 
   void
-  Region::updateColumnsOverlap(const BitVector &input)
+  SpatialPooler::run(const BitVector &input, BitVector &actColumns)
   {
-    column_iterator it;
-    for ( it = columns.begin(); it != columns.end(); it++ ) {
-      (*it)->updateOverlap(input);
+    /* Phase 1: Overlap. */
+    updateColumnsOverlap(input);
+    
+    /* Phase 2: Inhibition + Synapse Learning */
+    inhibitColumns(input, actColumns);
+
+    /* Boost Missing */
+    __inhibitionRadius = __avgReceptiveFieldSize();
+
+    if ( hacktmdebug::Flags & hacktmdebug::PrintOverlappingColumns ) {
+      for ( unsigned i = 0; i < __columnSpace->getSize(); i++ )
+	std::cout << __columnsOverlap[i] << " ";
+      std::cout << std::endl;
+    }
+
+    if ( hacktmdebug::Flags & hacktmdebug::PrintWinningColumns ) {
+      std::cout << "And the winners are:\n";
+      std::cout << actColumns << std::endl;
+    }
+
+    if ( hacktmdebug::Flags & hacktmdebug::PrintInhibitionRadius )
+      std::cout << "Inhibition radius: " << __inhibitionRadius << std::endl;
+  }
+
+  void
+  SpatialPooler::updateColumnsOverlap(const BitVector &input)
+  {
+    for ( unsigned i = 0; i < __columnSpace->getSize(); i++ )
+      __columnsOverlap[i] = __dendrites[i].getOverlap(input);
+  }
+
+  void
+  SpatialPooler::inhibitColumns(const BitVector &input, BitVector &output)
+  {
+    output.reset();
+    for ( unsigned i = 0; i < __columnSpace->getSize(); i++ ) {
+      unsigned minLocalActivity;
+      SubSpace neighbors(__columnSpace, i, __inhibitionRadius);
+      
+      minLocalActivity = __kthScore(neighbors, htmconfig::desiredLocalActivity);
+
+      if ( __columnsOverlap[i] > 0 && __columnsOverlap[i] >= minLocalActivity ) {
+	/* Set "column" Active:
+	 * - update the synapses;
+	 * - set Id in the output Bitmap
+	 */
+	__dendrites[i].adjustSynapses(input);
+	output.set(i);
+      }
     }
   }
 
-  struct kthScore_closure
+  scalar_t
+  SpatialPooler::__avgReceptiveFieldSize()
   {
-    kthScore_closure(std::vector<Column*> &columns) : __columns(columns) {}
+    unsigned long long avg = 0; // No overflow check.
+    for ( unsigned i = 0; i < __columnSpace->getSize(); i++ )
+      avg += __dendrites[i].getReceptiveFieldSize();
+    return avg / __columnSpace->getSize();
+  }
 
+  /*
+   * KthScore functionality for SubSpaces.
+   */
+  /* TODO: Closures are just too ugly in C++. Make an iterator in SubSpace. */
+
+  /* Sorry about this, I just miss lisp and closures. */
+  class findScore
+  {
+  public:
+    findScore(const unsigned *array) : __array(array) {}
     void operator()(id_t id)
     {
-      unsigned newscore = __columns[id]->getOverlap();
+      unsigned newscore = __array[id];
+      std::vector<unsigned>::iterator it;
+
 
       /* Early exit if the k-sized vector is already full, and we're
 	 lower than the current kth element. */
       if ( (scores.size() > __k) && (newscore <= scores[__k]) )
 	return;
 
-      scit = lower_bound(scores.begin(), scores.end(), newscore, std::greater<unsigned>());
-      if ( scit - scores.begin() < __k )
-	scit = scores.insert(scit, newscore);
+      it = lower_bound(scores.begin(), scores.end(), 
+		       newscore, std::greater<unsigned>());
+
+      if ( it - scores.begin() < __k )
+	scores.insert(it, newscore);
     }
 
     void reset(unsigned k)
@@ -60,67 +126,47 @@ namespace HackTM {
     }
 
     std::vector<unsigned> scores;
-    std::vector<unsigned>::iterator scit;
-    std::vector<Column*> &__columns;
+  private:
     unsigned __k;
+    const unsigned *__array;
   };
 
   unsigned
-  Region::kthScore(SubSpace &neighbors, unsigned k)
+  SpatialPooler::__kthScore(SubSpace &neighbors, unsigned k)
   {
-    kthScore_closure func(columns); // XXX: Make this object specific.
-    func.reset(k);
-    neighbors.apply(func);
+    findScore overlapScores(__columnsOverlap);
+    overlapScores.reset(k);
+    neighbors.apply(overlapScores);
 
-    if ( func.scores.size() >= k )
-      return func.scores[k - 1];
+    if ( overlapScores.scores.size() >= k )
+      return overlapScores.scores[k - 1];
     else
       return 0;
   }
-
-  void
-  Region::inhibitColumns()
-  {
-    column_iterator it;
-    activeColumns.clear();
-
-    for ( it = columns.begin(); it != columns.end(); it++ ) {
-      Column *c = *it;
-      unsigned minLocalActivity;
-      SubSpace neighbors(__columnSpace, c->getId(), __inhibitionRadius);
-      
-      minLocalActivity = kthScore(neighbors, htmconfig::desiredLocalActivity);
-
-      if ( c->getOverlap() > 0 && c->getOverlap() >= minLocalActivity )
-	activeColumns.push_back(c);
+  
+  id_t 
+  SpatialPooler::__getColumnInputCenter(id_t id) const {
+      return __inputToColumn->transformIdBackward(id);
     }
+  scalar_t 
+  SpatialPooler::__scaleRadiusFromColumnSpace(scalar_t value) const { 
+    return __inputToColumn->transformScalarBackward(value);
   }
-
-  void
-  Region::adjustProximalSynapses(const BitVector &input)
-  {
-    Region::activecol_iterator actit;
-    for ( actit = activeColumns.begin(); actit != activeColumns.end(); actit++ ) {
-      Column *c = *actit;
-      c->proximalDendrite->adjustPotentialSynapses(input);
-    }
+  scalar_t 
+  SpatialPooler::__scaleRadiusToColumnSpace(scalar_t value) const {
+    return __inputToColumn->transformScalarForward(value);
   }
 
   void 
-  Region::__connectColumnsToInput()
+  SpatialPooler::__initDendrites()
   {
-    column_iterator it;
-    for ( it = columns.begin(); it != columns.end(); it++ ) {
-      ProximalDendrite *p = new ProximalDendrite(__inputSpace);
-      id_t center = getColumnInputCenter(*it);
-      scalar_t columnradius = scaleRadiusFromColumnSpace(1);
-      scalar_t radius = 4 * columnradius;
-      unsigned syns = columnradius * columnradius;
+    for ( unsigned i = 0; i < __columnSpace->getSize(); i++ ) {
+      id_t center = __getColumnInputCenter(i);
+      scalar_t radius = __scaleRadiusFromColumnSpace(htmconfig::radialOverlapping);
+      unsigned syns = htmconfig::proximalSynapses;
 
-      p->populatePotentialSynapses(syns, center, radius);
-      (*it)->proximalDendrite = p;
+      __dendrites[i].populateSynapses(syns, __inputSpace, center, radius);
     }
   }
-
 };
 

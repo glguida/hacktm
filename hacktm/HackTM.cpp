@@ -1,67 +1,41 @@
-#include <cassert>
-#include <algorithm>
-#include <functional>
-
 #include "HackTM.h"
-#include "Region.h"
 
 using namespace htmconfig;
 
 namespace hacktmdebug {
-  int DebugFlags = Debug_All;
+  int Flags = All;
 }
 
-namespace HackTM {
-  scalar_t averageReceptiveFieldSize(Region *r)
-  {
-    unsigned long long avg = 0; // No overflow check.
-    for ( Region::column_iterator it = r->columns.begin(); it != r->columns.end(); it++ )
-      avg += (*it)->proximalDendrite->getReceptiveFieldSize();
-    return avg / r->getColumnSpace()->getSize();
-  }
+namespace htmconfig {
 
-  void
-  spatialPoolerInit(Region *r)
-  {
-    r->setInhibitionRadius(averageReceptiveFieldSize(r));
-  }
+  /* The minimum permanence value at which a synapse is considered "connected" */
+  float connectedPerm = 0.2;
 
-  void
-  spatialPooler(Region *r, const BitVector &input)
-  {
-    Region::column_iterator it;
-    Region::activecol_iterator actit;
+  /* Amount pf permanence value synapse are incremented/decremented during learning. */
+  float permanenceInc = 0.05;
+  float permanenceDec = 0.05;
 
-    // Phase 0: Reset.
-    r->activeColumns.clear();
+  /* Minimum number of inputs that must be active for the column to be
+     considered in Inhibition phase. */
+  unsigned minOverlap = 3;
 
-    // Phase 1: Overlap.
-    r->updateColumnsOverlap(input);
-    
-    // Phase 2: Inhibition.
-    r->inhibitColumns();
 
-    // Phase 3: Learning
-    r->adjustProximalSynapses(input);
-    /* Boost Missing */
-    r->setInhibitionRadius(averageReceptiveFieldSize(r));
+  /* A parameter controlling the number of columns that will be
+     winners after the inhibition step. */
+  unsigned desiredLocalActivity = 10;
 
-    if ( hacktmdebug::DebugFlags & hacktmdebug::Debug_PrintOverlappingColumns ) {
-      Region::column_iterator it;
-      for ( it = r->columns.begin(); it != r->columns.end(); it++ )
-	std::cout << (*it)->getOverlap() << " ";
-      std::cout << std::endl;
-    }
-
-    if ( hacktmdebug::DebugFlags & hacktmdebug::Debug_PrintWinningColumns ) {
-      Region::activecol_iterator it;
-      std::cout << "And the winners are:\n";
-      for ( it = r->activeColumns.begin(); it != r->activeColumns.end(); it++ ) {
-	std::cout << (*it)->getId() << std::endl;
-      }
-      std::cout << std::endl;
-    }
-  }
+  /* 
+   *HackTM Specific Configuration. 
+   */
+  
+  /* This parameter controls the area where covered by the proximal
+     dendrite. It is the radius of a sphere in the column space. The
+     potential syapses of the column will overlap the input space of
+     the columns included in the sphere. */
+  unsigned radialOverlapping = 20;
+  
+  /* The number of synapses in each Proximal Dendrite. */
+  unsigned proximalSynapses = 2000;
 }
 
 

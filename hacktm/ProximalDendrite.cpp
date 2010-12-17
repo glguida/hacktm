@@ -11,12 +11,6 @@ namespace HackTM {
 
   ProximalDendrite::~ProximalDendrite()
   {
-    clearPotentialSynapses();
-  }
-
-  void 
-  ProximalDendrite::clearPotentialSynapses()
-  {
     __connectedSynapses.clear();
     for ( synapse_iterator it = potentialBegin(); it != potentialEnd(); it++ )
       delete *it;
@@ -24,8 +18,11 @@ namespace HackTM {
   }
 
   void 
-  ProximalDendrite::populatePotentialSynapses(unsigned synapses, id_t center, scalar_t radius)
+  ProximalDendrite::populateSynapses(unsigned synapses, const Space *inputspace,
+				     id_t center, scalar_t radius)
   {
+    __inputSpace = inputspace;
+
     NormalRandomGenerator nrg(__inputSpace, center, radius);
     BitVector synapseMap(__inputSpace->getSize());
     for ( unsigned i = 0; i < synapses; i++ ) {
@@ -47,7 +44,7 @@ namespace HackTM {
   }
 
   void
-  ProximalDendrite::adjustPotentialSynapses(const BitVector &input)
+  ProximalDendrite::adjustSynapses(const BitVector &input)
   {
     for ( synapse_iterator it = potentialBegin(); it != potentialEnd(); it++ ) {
       if ( input.test((*it)->id) )

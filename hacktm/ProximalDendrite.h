@@ -15,13 +15,12 @@ namespace HackTM {
 
   class ProximalDendrite {
   public:
-    ProximalDendrite(const Space *inputspace)
-      : __inputSpace(inputspace) {}
+    ProximalDendrite() {}
     ~ProximalDendrite();
 
-    void populatePotentialSynapses(unsigned synapses, id_t center, scalar_t radius);
-    void adjustPotentialSynapses(const BitVector &input);
-    void clearPotentialSynapses();
+    void populateSynapses(unsigned synapses, const Space *inputspace,
+				   id_t center, scalar_t radius);
+    void adjustSynapses(const BitVector &input);
 
     unsigned getOverlap(const BitVector &input);
     inline scalar_t getReceptiveFieldSize() const { return __receptiveFieldSize; }

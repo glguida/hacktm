@@ -12,6 +12,24 @@ namespace HackTM {
 
 }
 
+
+/*
+ * Debug and printout controls.
+ */
+
+namespace hacktmdebug {
+
+  enum debug {
+    None = 0,
+    PrintOverlappingColumns = 1,
+    PrintWinningColumns = 2,
+    PrintInhibitionRadius = 4,
+    All = 0xff
+  };
+
+  extern int Flags;
+}
+
 #include "HackTMConfig.h"
 
 #endif
