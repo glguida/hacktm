@@ -83,7 +83,7 @@ namespace HackTM {
     struct synapse *syn = new struct synapse;
     syn->id = id;
     syn->perm = perm;
-    __potentialSynapses.push_back(syn);
+    __potentialSynapses.push_front(syn);
     if ( syn->perm >= htmconfig::connectedPerm )
       __connectedSynapses.push_front(syn);
   }
