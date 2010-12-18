@@ -3,28 +3,25 @@
 #include "BitVector.h"
 #include "HackTM.h"
 #include "Space.h"
-#include "Region.h"
-#include "HTMFunctions.h"
+#include "SpatialPooler.h"
 
 using namespace HackTM;
 
-#define NUM 100
+#define NUM 1000
 
 main()
 {
   clock_t c1, c2, c3;
 
   /* First of all, diable debug flags. */
-  hacktmdebug::DebugFlags = 0;
+  hacktmdebug::Flags = 0;
 
   c1 = clock();
   Vector input(2, 1000);
   Vector columns(2, 30);
   Space inputSpace(input), columnSpace(columns);
 
-  Region n(&inputSpace, &columnSpace);
-
-  spatialPoolerInit(&n);
+  SpatialPooler sp(&inputSpace, &columnSpace);
 
   BitVector diagonalL(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
@@ -42,21 +39,24 @@ main()
 
   BitVector black(inputSpace.getSize());
   black.set();
+
+  BitVector out(columnSpace.getSize());
+
   c2 = clock();
   unsigned id = NUM;
   while ( id-- > 0 ) {
     switch ( id % 4) {
     case 0 : 
-      spatialPooler(&n, diagonalL);
+      sp.run(diagonalL, out);
       break;
     case 1:
-      spatialPooler(&n, diagonalR);
+      sp.run(diagonalR, out);
       break;
     case 2:
-      spatialPooler(&n, ddiag);
+      sp.run(ddiag, out);
       break;
     case 4:
-      spatialPooler(&n, black);
+      sp.run(black, out);
     }
   }
   c3 = clock();

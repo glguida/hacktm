@@ -14,7 +14,7 @@
 #ifndef LLVM_SUPPORT_MATHEXTRAS_H
 #define LLVM_SUPPORT_MATHEXTRAS_H
 
-#include <stdint.h>
+#include "llvm/System/DataTypes.h"
 
 namespace llvm {
 
@@ -433,6 +433,13 @@ static inline uint64_t NextPowerOf2(uint64_t A) {
 /// RoundUpToAlignment(~0LL, 8) = 0
 inline uint64_t RoundUpToAlignment(uint64_t Value, uint64_t Align) {
   return ((Value + Align - 1) / Align) * Align;
+}
+
+/// OffsetToAlignment - Return the offset to the next integer (mod 2**64) that
+/// is greater than or equal to \arg Value and is a multiple of \arg
+/// Align. Align must be non-zero.
+inline uint64_t OffsetToAlignment(uint64_t Value, uint64_t Align) {
+  return RoundUpToAlignment(Value, Align) - Value;
 }
 
 /// abs64 - absolute value of a 64-bit int.  Not all environments support

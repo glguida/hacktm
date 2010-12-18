@@ -29,8 +29,6 @@ namespace HackTM {
     scalar_t __scaleRadiusToColumnSpace(scalar_t value) const;
     unsigned __kthScore(SubSpace &neighbors, unsigned);
 
-
-
     scalar_t              __inhibitionRadius;
     unsigned              *__columnsOverlap;
     ProximalDendrite      *__dendrites;    

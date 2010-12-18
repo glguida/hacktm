@@ -61,6 +61,7 @@ namespace HackTM {
   ProximalDendrite::getOverlap(const BitVector &input)
   {
     unsigned overlap = 0;
+
     for ( synapse_iterator it = connectedBegin(); it != connectedEnd(); it++ ) {
       if ( input.test((*it)->id) == true )
 	overlap++;
@@ -105,7 +106,7 @@ namespace HackTM {
   }
   
   static struct synapseToId {
-    id_t operator()(struct synapse *s) {
+    inline id_t operator()(struct synapse *s) {
       return s->id;
     };
   } syn2id;

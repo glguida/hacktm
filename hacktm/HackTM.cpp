@@ -35,7 +35,7 @@ namespace htmconfig {
   unsigned radialOverlapping = 20;
   
   /* The number of synapses in each Proximal Dendrite. */
-  unsigned proximalSynapses = 2000;
+  unsigned proximalSynapses = 1000;
 }
 
 

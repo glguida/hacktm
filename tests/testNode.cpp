@@ -1,6 +1,6 @@
 #include "BitVector.h"
-#include "Region.h"
-#include "HTMFunctions.h"
+#include "HackTM.h"
+#include "SpatialPooler.h"
 
 using namespace HackTM;
 
@@ -13,9 +13,7 @@ main()
 
   std::cout << "Initializing...";
 
-  Region n(&inputSpace, &columnSpace);
-
-  spatialPoolerInit(&n);
+  SpatialPooler sp(&inputSpace, &columnSpace);
 
   BitVector diagonalL(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
@@ -34,6 +32,8 @@ main()
   BitVector black(inputSpace.getSize());
   black.set();
 
+  BitVector out(columnSpace.getSize());
+
   std::cout << "done." << std::endl;
 
   while ( 1 ) {
@@ -41,16 +41,16 @@ main()
     std::cin >> c;
     switch ( c ) {
     case 'z' : 
-      spatialPooler(&n, diagonalL);
+      sp.run(diagonalL, out);
       break;
     case 'x':
-      spatialPooler(&n, diagonalR);
+      sp.run(diagonalR, out);
       break;
     case 'c':
-      spatialPooler(&n, ddiag);
+      sp.run(ddiag, out);
       break;
     default:
-      spatialPooler(&n, black);
+      sp.run(black, out);
     }
   }
 }

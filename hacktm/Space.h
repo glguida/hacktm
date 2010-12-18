@@ -157,7 +157,7 @@ namespace HackTM {
   class NormalRandomGenerator {
   public:
     NormalRandomGenerator(const Space *space, id_t center, scalar_t radius)
-      : __r(radius), __space(space), __center(space->getDimensions())
+      : __r(radius), __center(space->getDimensions()), __space(space)
     { 
       __space->setVectorFromId(center, __center); 
     }
