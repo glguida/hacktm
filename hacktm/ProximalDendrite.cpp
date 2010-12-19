@@ -10,10 +10,9 @@ namespace HackTM {
 
   ProximalDendrite::~ProximalDendrite()
   {
-    __connectedSynapses.clear();
-    for ( synapse_iterator it = potentialBegin(); it != potentialEnd(); it++ )
+    synapse_iterator it;
+    for ( it = __potentialSynapses.begin(); it != __potentialSynapses.end(); it++ )
       delete *it;
-    __potentialSynapses.clear();
   }
 
   void 
@@ -57,7 +56,8 @@ namespace HackTM {
   void
   ProximalDendrite::adjustSynapses(const BitVector &input)
   {
-    for ( synapse_iterator it = potentialBegin(); it != potentialEnd(); it++ ) {
+    synapse_iterator it;
+    for ( it = __potentialSynapses.begin(); it != __potentialSynapses.end(); it++ ) {
       if ( input.test((*it)->id) )
 	__incPotentialSynapse(*it);
       else
@@ -71,9 +71,10 @@ namespace HackTM {
   unsigned
   ProximalDendrite::getOverlap(const BitVector &input)
   {
+    synapse_iterator it;
     unsigned overlap = 0;
 
-    for ( synapse_iterator it = connectedBegin(); it != connectedEnd(); it++ ) {
+    for ( it = __connectedSynapses.begin(); it != __connectedSynapses.end(); it++ ) {
       if ( input.test((*it)->id) == true )
 	overlap++;
     }
@@ -126,7 +127,8 @@ namespace HackTM {
   ProximalDendrite::__updateReceptiveFieldSize()
   {
     SubSpace sub(__inputSpace, 0, 0);
-    __receptiveFieldSize = sub.collect(connectedBegin(), connectedEnd(), syn2id);
+    __receptiveFieldSize = sub.collect(__connectedSynapses.begin(), 
+				       __connectedSynapses.end(), syn2id);
   }
 
 }

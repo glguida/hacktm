@@ -21,24 +21,11 @@ namespace HackTM {
 
     void populateSynapses(unsigned synapses, const Space *inputspace, id_t center);
     void adjustSynapses(const BitVector &input);
-
     unsigned getOverlap(const BitVector &input);
+
     inline scalar_t getReceptiveFieldSize() const { return __receptiveFieldSize; }
 
     typedef std::list<struct synapse *>::iterator synapse_iterator;
-    inline synapse_iterator connectedBegin () {
-      return __connectedSynapses.begin();
-    }
-    inline synapse_iterator connectedEnd () {
-      return __connectedSynapses.end();
-    }
-    inline synapse_iterator potentialBegin() {
-      return __potentialSynapses.begin();
-    }
-    inline synapse_iterator potentialEnd() {
-      return __potentialSynapses.end();
-    }
-
     friend class Introspection;
   private:
     scalar_t __receptiveFieldSize;
