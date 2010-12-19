@@ -127,17 +127,6 @@ namespace HackTM {
   {
     SubSpace sub(__inputSpace, 0, 0);
     __receptiveFieldSize = sub.collect(connectedBegin(), connectedEnd(), syn2id);
-#if 0
-    /* The Receptive Field radius is approximated with 1/2 of the
-       average of the edges of the smallest subspace (defined by two
-       vectors, min and max) containing all the connections of this
-       dendrite to the input space. */
-    for ( synapse_iterator it = connectedBegin(); it != connectedEnd(); it++ ) {
-      __inputSpace->accumulateMinMaxCoordinates(min, max, (*it)->id);
-    }
-    __receptiveFieldSize = (max -= min).sum() / (2 *max.size());
-#endif
-
   }
 
 }
