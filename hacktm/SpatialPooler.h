@@ -8,6 +8,7 @@
 #include "HackTM.h"
 #include "Space.h"
 #include "ProximalDendrite.h"
+#include "Introspection.h"
 #include "BitVector.h"
 
 namespace HackTM {
@@ -21,6 +22,7 @@ namespace HackTM {
     void updateColumnsOverlap(const BitVector&);
     void inhibitColumns(const BitVector&, BitVector&);
 
+    friend class Introspection;
   private:
     void     __initDendrites();
     scalar_t __avgReceptiveFieldSize();

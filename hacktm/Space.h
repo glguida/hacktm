@@ -6,6 +6,7 @@
 #include <numeric>
 
 #include "HackTM.h"
+#include "Introspection.h"
 
 namespace HackTM {
 
@@ -30,7 +31,7 @@ namespace HackTM {
     inline bool contains(id_t id) const { return id < __size; }
     inline bool contains(Vector v) const
     {
-      for (unsigned i = 0; i < __dimensions; i++ )
+      for (unsigned i = 0; i < __dimension; i++ )
 	if ( v[i] < 0 || v[i] >= __maxCoordinates[i] )
 	  return false;
       return true;
@@ -48,17 +49,21 @@ namespace HackTM {
 				__idProjector.begin(), 0);
     }
     Vector &setVectorFromId(id_t id, Vector &v) const;
+    scalar_t getDistance(id_t id1, id_t id2) const;
     
     inline const unsigned getSize() const { return __size; }
-    inline const unsigned getDimensions() const { return __dimensions; }
+    inline const scalar_t getMaxSide() const { return __maxSide; }
+    inline const unsigned getDimension() const { return __dimension; }
     inline coord_t getMaxCoord(int i) const { return __maxCoordinates[i]; }
     inline coord_t getIdProjectorValue(int i) const  { return __idProjector[i]; }
 
+    friend class Introspection;
   private:
-    unsigned  __size;
-    Vector __idProjector;
-    Vector __maxCoordinates;
-    const unsigned __dimensions;
+    unsigned       __size;
+    scalar_t       __maxSide;
+    Vector         __idProjector;
+    Vector         __maxCoordinates;
+    const unsigned __dimension;
   };
 
 
@@ -93,7 +98,7 @@ namespace HackTM {
     template <class F>
     void apply(F &func)
     {
-      __apply(getMinId(), getSpace()->getDimensions() - 1, func);
+      __apply(getMinId(), getSpace()->getDimension() - 1, func);
     }
 
     template <class F>
@@ -121,7 +126,7 @@ namespace HackTM {
     {
       /* Recalculate Max and Min. */
       for ( T it = begin; it != end; it++ )
-	for ( unsigned i = 0; i < __space->getDimensions(); i++ ) {
+	for ( unsigned i = 0; i < __space->getDimension(); i++ ) {
 	  coord_t coord = __space->getCoord(func(*it), i);
 	  __minSub[i] = std::min(coord, __minSub[i]);
 	  // +1 because we check for max which is over the end.
@@ -157,7 +162,7 @@ namespace HackTM {
   class NormalRandomGenerator {
   public:
     NormalRandomGenerator(const Space *space, id_t center, scalar_t radius)
-      : __r(radius), __center(space->getDimensions()), __space(space)
+      : __r(radius), __center(space->getDimension()), __space(space)
     { 
       __space->setVectorFromId(center, __center); 
     }

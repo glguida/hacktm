@@ -4,6 +4,7 @@
 #include <list>
 #include "HackTM.h"
 #include "Space.h"
+#include "Introspection.h"
 #include "BitVector.h"
 
 namespace HackTM {
@@ -18,8 +19,7 @@ namespace HackTM {
     ProximalDendrite() {}
     ~ProximalDendrite();
 
-    void populateSynapses(unsigned synapses, const Space *inputspace,
-				   id_t center, scalar_t radius);
+    void populateSynapses(unsigned synapses, const Space *inputspace, id_t center);
     void adjustSynapses(const BitVector &input);
 
     unsigned getOverlap(const BitVector &input);
@@ -39,6 +39,7 @@ namespace HackTM {
       return __potentialSynapses.end();
     }
 
+    friend class Introspection;
   private:
     scalar_t __receptiveFieldSize;
     void __updateReceptiveFieldSize();

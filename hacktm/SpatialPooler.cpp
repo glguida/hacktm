@@ -162,10 +162,9 @@ namespace HackTM {
   {
     for ( unsigned i = 0; i < __columnSpace->getSize(); i++ ) {
       id_t center = __getColumnInputCenter(i);
-      scalar_t radius = __scaleRadiusFromColumnSpace(htmconfig::radialOverlapping);
       unsigned syns = htmconfig::proximalSynapses;
 
-      __dendrites[i].populateSynapses(syns, __inputSpace, center, radius);
+      __dendrites[i].populateSynapses(syns, __inputSpace, center);
     }
   }
 };

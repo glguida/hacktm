@@ -6,7 +6,6 @@
 #include "ProximalDendrite.h"
 #include "rnd_normal.h"
 
-
 namespace HackTM {
 
   ProximalDendrite::~ProximalDendrite()
@@ -18,11 +17,11 @@ namespace HackTM {
   }
 
   void 
-  ProximalDendrite::populateSynapses(unsigned synapses, const Space *inputspace,
-				     id_t center, scalar_t radius)
+  ProximalDendrite::populateSynapses(unsigned synapses, const Space *inputspace, id_t center)
   {
     __inputSpace = inputspace;
 
+    scalar_t radius = htmconfig::overlappingCoverage * __inputSpace->getMaxSide();
     NormalRandomGenerator nrg(__inputSpace, center, radius);
     BitVector synapseMap(__inputSpace->getSize());
     for ( unsigned i = 0; i < synapses; i++ ) {
@@ -33,8 +32,20 @@ namespace HackTM {
 	random = nrg();
       } while ( synapseMap.test(random) == true );
       synapseMap.set(random);
-      
-      __addSynapse(nrg(), rnd_normal(htmconfig::connectedPerm, 0.1));
+
+      /* Bias the random perm value towards the center of the dendrite:
+       *
+       * PERM, the "center" of the random distribution, is calculated
+       * as: 
+       *      (1 - d/r) * (3/2 * connectedPerm)
+       *
+       * Which is, is at 3/2 of connectedPerm at the center and goes
+       * to zero linearly as the points are at radius distance.
+       */
+      float perm = 1.0 - (float)__inputSpace->getDistance(random, center)/radius;
+      perm = perm * htmconfig::connectedPerm * 1.5;
+
+      __addSynapse(random, std::max(0.0f, rnd_normal(perm, htmconfig::connectedPerm/2)));
     }
     __updateReceptiveFieldSize();
   }

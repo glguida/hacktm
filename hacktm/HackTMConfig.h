@@ -23,11 +23,11 @@ namespace htmconfig {
    *HackTM Specific Configuration. 
    */
   
-  /* This parameter controls the area where covered by the proximal
-     dendrite. It is the radius of a sphere in the column space. The
-     potential syapses of the column will overlap the input space of
-     the columns included in the sphere. */
-  extern unsigned radialOverlapping;
+  /* This parameter is the fraction of the input area covered by each
+     column's proximal dendrite. A value of 1 means that the whole
+     input space can be reached by any column, a value of zero is
+     possible but safely ignored and put to a allowed minimum. */
+  extern float overlappingCoverage;
 
   /* The number of synapses in each Proximal Dendrite. */
   extern unsigned proximalSynapses;

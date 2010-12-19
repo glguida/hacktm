@@ -32,7 +32,7 @@ namespace htmconfig {
      dendrite. It is the radius of a sphere in the column space. The
      potential syapses of the column will overlap the input space of
      the columns included in the sphere. */
-  unsigned radialOverlapping = 20;
+  float overlappingCoverage = 0.3;
   
   /* The number of synapses in each Proximal Dendrite. */
   unsigned proximalSynapses = 1000;
