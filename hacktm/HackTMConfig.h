@@ -48,4 +48,4 @@ namespace htmconfig {
 
 }
 
-#endif __HACKTMCONFIG_H__
+#endif /*__HACKTMCONFIG_H__*/

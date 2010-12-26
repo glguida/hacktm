@@ -1,9 +1,10 @@
-#include "HackTM.h"
+include "HackTM.h"
 #include "TemporalPooler.h"
 
 #include "Introspection.h"
 
 #include <cassert>
+#include <limits>
 #include <numeric>
 
 namespace hacktm {
