@@ -1,4 +1,4 @@
-include "HackTM.h"
+#include "HackTM.h"
 #include "TemporalPooler.h"
 
 #include "Introspection.h"
