@@ -19,6 +19,20 @@ namespace htmconfig {
      winners after the inhibition step. */
   extern unsigned desiredLocalActivity;
 
+  /*Activation threshold for a segment. If the number of active
+    connected synapses in a segment is greater than
+    activationThreshold, the segment is said to be active. */
+  extern unsigned activationThreshold;
+
+  /* Minimum segment activity for learning. */
+  extern unsigned minThreshold;
+
+  extern unsigned newSynapseCount;
+
+  extern unsigned learningRadius;
+
+  extern float initialPerm;
+
   /* 
    *HackTM Specific Configuration. 
    */

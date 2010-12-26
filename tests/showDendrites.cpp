@@ -23,8 +23,7 @@ main()
  
   Space inputSpace(input), columnSpace(col);
   SpatialPooler sp(&inputSpace, &columnSpace);
-  Introspection info(&sp);
 
-   info.dumpAllPotentialSynapses();
+  IntrospectionLib::dumpAllPotentialSynapses(&sp);
  }
 

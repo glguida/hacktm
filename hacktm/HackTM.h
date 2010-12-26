@@ -2,6 +2,7 @@
 #define __HACKTM_H__
 
 #include <vector>
+#include <list>
 
 namespace HackTM {
 
@@ -10,6 +11,14 @@ namespace HackTM {
   typedef unsigned scalar_t;
   typedef std::vector<coord_t> Vector;
 
+  struct synapse {
+    id_t id;
+    float perm;
+  };
+  typedef std::list<struct synapse *>::iterator synapse_iterator;
+
+
+  class Introspection;
 }
 
 

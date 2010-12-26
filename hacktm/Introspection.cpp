@@ -1,44 +1,80 @@
 #include "HackTM.h"
 #include "ProximalDendrite.h"
 #include "SpatialPooler.h"
+#include "TemporalPooler.h"
 #include "Space.h"
 #include "Introspection.h"
 
 #include <iostream>
 
 namespace HackTM {
+  namespace IntrospectionLib {
+    void
+    dumpPotentialSynapses(const SpatialPooler *sp, unsigned column)
+    {
+      Introspection is;
+      const ProximalDendrite *p = &(is.getSpatialPoolerProximalDendrites(sp)[column]);
+      const Space *inputSpace = is.getProximalDendriteInputSpace(p);
+      std::list<synapse*>::const_iterator it;
+      for ( it = is.getProximalDendritePotentialSynapses(p).begin();
+	    it != is.getProximalDendritePotentialSynapses(p).end(); it++ ) {
+	for ( unsigned i = 0; i < inputSpace->getDimension(); i++ )
+	  std::cout << inputSpace->getCoord((*it)->id, i) << " ";
+	std::cout << (*it)->perm << std::endl;
+      }
+      std::cout << std::endl << std::endl;
+    }
+    
+    void 
+    dumpAllPotentialSynapses(const SpatialPooler *sp)
+    {
+      Introspection is;
+      unsigned columns = is.getSpatialPoolerColumnSpace(sp)->getSize();
+      for ( unsigned i = 0; i < columns; i++ )
+	dumpPotentialSynapses(sp, i);
+    }
 
-  Introspection::Introspection(SpatialPooler *sp)
-    : spatialPooler(sp),
-      dendrites(sp->__dendrites) {}
+    void
+    dumpActiveCells(const TemporalPooler *tp, htmtime_t t)
+    {
+      Introspection is;
+      const CellsState *cs = is.getTemporalPoolerCellsState(tp);
+      
+      std::cout << "Active State: " << std::endl;
+      std::cout << *(is.getCellsStateActiveState(cs, t)) << std::endl;
+    }
 
-  void 
-  Introspection::dumpSynapse(ProximalDendrite *p, struct synapse *syn)
-  {
-    unsigned dimension = p->__inputSpace->getDimension();
-    for ( unsigned i = 0; i < dimension; i++ )
-      std::cout << p->__inputSpace->getCoord(syn->id, i) << " ";
-    std::cout << syn->perm << std::endl;
+    void
+    dumpPredictiveCells(const TemporalPooler *tp, htmtime_t t)
+    {
+      Introspection is;
+      const CellsState *cs = is.getTemporalPoolerCellsState(tp);
+      
+      std::cout << "Predictive State: " << std::endl;
+      std::cout << *(is.getCellsStatePredictiveState(cs, t)) << std::endl;
+    }
+
+    void
+    dumpLearnCells_bitmap(const TemporalPooler *tp)
+    {
+      Introspection is;
+      const CellsState *cs = is.getTemporalPoolerCellsState(tp);
+      
+      std::cout << "Learn State: " << std::endl;
+      std::cout << *(is.getCellsStateLearnState(cs)) << std::endl;
+    }
+    void
+    dumpLearnCells(const TemporalPooler *tp, htmtime_t t)
+    {
+      Introspection is;
+      const CellsState *cs = is.getTemporalPoolerCellsState(tp);
+      std::vector<id_t>::const_iterator it;
+
+      std::cout << "Learn Cells:\n";
+      for ( it = is.getCellsStateLearnCells(cs, t).begin();
+	    it != is.getCellsStateLearnCells(cs, t).end(); it++ )
+	std::cout << *it << " ";
+      std::cout << std::endl;
+    }
   }
-
-  void
-  Introspection::dumpPotentialSynapses(unsigned column)
-  {
-    ProximalDendrite *p = &spatialPooler->__dendrites[column];
-    ProximalDendrite::synapse_iterator it;
-    for ( it = p->__potentialSynapses.begin();
-	  it != p->__potentialSynapses.end(); it++ )
-      dumpSynapse(p, *it);
-    std::cout << std::endl << std::endl;
-
-  }
-
-  void 
-  Introspection::dumpAllPotentialSynapses()
-  {
-    unsigned columns = spatialPooler->__columnSpace->getSize();
-    for ( unsigned i = 0; i < columns; i++ )
-      dumpPotentialSynapses(i);
-  }
-
 }

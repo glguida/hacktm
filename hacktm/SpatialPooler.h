@@ -8,7 +8,6 @@
 #include "HackTM.h"
 #include "Space.h"
 #include "ProximalDendrite.h"
-#include "Introspection.h"
 #include "BitVector.h"
 
 namespace HackTM {
@@ -18,9 +17,9 @@ namespace HackTM {
     SpatialPooler(const Space *inputspace, const Space *columnspace);
     ~SpatialPooler();
 
-    void run(const BitVector &input, BitVector &actColumns);
+    void run(const BitVector &input, std::list<id_t> &actColumns);
     void updateColumnsOverlap(const BitVector&);
-    void inhibitColumns(const BitVector&, BitVector&);
+    void inhibitColumns(const BitVector&, std::list<id_t> &);
 
     friend class Introspection;
   private:

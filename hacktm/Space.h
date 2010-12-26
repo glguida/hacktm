@@ -6,7 +6,6 @@
 #include <numeric>
 
 #include "HackTM.h"
-#include "Introspection.h"
 
 namespace HackTM {
 

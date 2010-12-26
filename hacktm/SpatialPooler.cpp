@@ -17,7 +17,7 @@ namespace HackTM {
     __columnsOverlap = new unsigned[ __columnSpace->getSize() ];
     __initDendrites();
 
-    __inhibitionRadius = __avgReceptiveFieldSize();
+    __inhibitionRadius = __scaleRadiusToColumnSpace(__avgReceptiveFieldSize());
   }
 
   SpatialPooler::~SpatialPooler()
@@ -28,7 +28,7 @@ namespace HackTM {
   }
 
   void
-  SpatialPooler::run(const BitVector &input, BitVector &actColumns)
+  SpatialPooler::run(const BitVector &input, std::list<id_t> &actColumns)
   {
     /* Phase 1: Overlap. */
     updateColumnsOverlap(input);
@@ -37,7 +37,7 @@ namespace HackTM {
     inhibitColumns(input, actColumns);
 
     /* Boost Missing */
-    __inhibitionRadius = __avgReceptiveFieldSize();
+    __inhibitionRadius = __scaleRadiusToColumnSpace(__avgReceptiveFieldSize());
 
     if ( hacktmdebug::Flags & hacktmdebug::PrintOverlappingColumns ) {
       for ( unsigned i = 0; i < __columnSpace->getSize(); i++ )
@@ -47,7 +47,9 @@ namespace HackTM {
 
     if ( hacktmdebug::Flags & hacktmdebug::PrintWinningColumns ) {
       std::cout << "And the winners are:\n";
-      std::cout << actColumns << std::endl;
+      std::list<id_t>::iterator it;
+      for ( it = actColumns.begin(); it != actColumns.end(); it++ )
+	std::cout << *it << std::endl;
     }
 
     if ( hacktmdebug::Flags & hacktmdebug::PrintInhibitionRadius )
@@ -62,9 +64,9 @@ namespace HackTM {
   }
 
   void
-  SpatialPooler::inhibitColumns(const BitVector &input, BitVector &output)
+  SpatialPooler::inhibitColumns(const BitVector &input, std::list<id_t> &output)
   {
-    output.reset();
+    output.clear();
     for ( unsigned i = 0; i < __columnSpace->getSize(); i++ ) {
       unsigned minLocalActivity;
       SubSpace neighbors(__columnSpace, i, __inhibitionRadius);
@@ -77,7 +79,7 @@ namespace HackTM {
 	 * - set Id in the output Bitmap
 	 */
 	__dendrites[i].adjustSynapses(input);
-	output.set(i);
+	output.push_front(i);
       }
     }
   }
@@ -117,6 +119,8 @@ namespace HackTM {
 
       if ( it - scores.begin() < __k )
 	scores.insert(it, newscore);
+
+      return;
     }
 
     void reset(unsigned k)

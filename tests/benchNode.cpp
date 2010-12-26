@@ -4,6 +4,7 @@
 #include "HackTM.h"
 #include "Space.h"
 #include "SpatialPooler.h"
+#include "TemporalPooler.h"
 
 using namespace HackTM;
 
@@ -22,6 +23,7 @@ main()
   Space inputSpace(input), columnSpace(columns);
 
   SpatialPooler sp(&inputSpace, &columnSpace);
+  TemporalPooler tp(&columnSpace, 4);
 
   BitVector diagonalL(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
@@ -40,23 +42,39 @@ main()
   BitVector black(inputSpace.getSize());
   black.set();
 
-  BitVector out(columnSpace.getSize());
+  std::list<id_t> out;
 
   c2 = clock();
+  htmtime_t cur = 0;
+  htmtime_t prev = 1;
   unsigned id = NUM;
   while ( id-- > 0 ) {
+    cur = ( cur + 1 ) % 2;
+    prev = (prev + 1) % 2;
     switch ( id % 4) {
     case 0 : 
       sp.run(diagonalL, out);
+      tp.calculateActiveState(cur, prev, out);
+      tp.calculatePredictiveState(cur, prev);
+      tp.learn(cur, prev);
       break;
     case 1:
       sp.run(diagonalR, out);
+      tp.calculateActiveState(cur, prev, out);
+      tp.calculatePredictiveState(cur, prev);
+      tp.learn(cur, prev);
       break;
     case 2:
       sp.run(ddiag, out);
+      tp.calculateActiveState(cur, prev, out);
+      tp.calculatePredictiveState(cur, prev);
+      tp.learn(cur, prev);
       break;
     case 4:
       sp.run(black, out);
+      tp.calculateActiveState(cur, prev, out);
+      tp.calculatePredictiveState(cur, prev);
+      tp.learn(cur, prev);
     }
   }
   c3 = clock();

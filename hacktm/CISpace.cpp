@@ -1,22 +1,29 @@
 #include "HackTM.h"
 #include "Space.h"
-#include "CITSpace.h"
+#include "CISpace.h"
 
 using namespace HackTM;
 
-CITState::CITState(unsigned columns, unsigned cells, unsigned time)
-  : __state(columns * cells * time), __cols(columns),
-    __cells(cells), __time(time)
+CISpace::CISpace(Space *columnspace, unsigned cells)
 {
-  Vector max(3);
-  max.push_back(columns);
+  unsigned coldim = columnspace->getDimension();
+  /* create a space of dimensions (dim(ColumnSpace) + 1) */
+  Vector max;
+  for ( unsigned i = 0; i < coldim; i++ )
+    max.push_back(columnspace->getMaxCoord(i));
   max.push_back(cells);
-  max.push_back(time);
-
   __space = new Space(max);
+
+  for ( unsigned i = 0; i < __space->getDimension(); i++ )
+    std::cout << "["<<i<<"] "<< __space->getIdProjectorValue(i) << " ";
+  std::cout << std::endl;
+
+  /* ProjectorValue of the cell coord (that is, last one). */
+  __cellIdProjectorValue = __space->getIdProjectorValue(max.size() - 1);
+  std::cout << " idprojv = " << __cellIdProjectorValue << " size: " << __space->getSize() << std::endl;
 }
 
-CITState::~CITState()
+CISpace::~CISpace()
 {
   delete __space;
 }
