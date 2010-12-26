@@ -7,7 +7,7 @@
 
 #include "HackTM.h"
 
-namespace HackTM {
+namespace hacktm {
 
   /*
    * Space.

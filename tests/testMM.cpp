@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Space.h"
 
-using namespace HackTM;
+using namespace hacktm;
 
 main()
 {

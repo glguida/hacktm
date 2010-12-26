@@ -9,7 +9,7 @@
 #include "CellsState.h"
 #include "BitVector.h"
 
-namespace HackTM {
+namespace hacktm {
 
   class TemporalPooler {
   public:

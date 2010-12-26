@@ -6,7 +6,7 @@
 #include "ProximalDendrite.h"
 #include "rnd_normal.h"
 
-namespace HackTM {
+namespace hacktm {
 
   ProximalDendrite::~ProximalDendrite()
   {

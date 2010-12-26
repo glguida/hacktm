@@ -7,7 +7,7 @@
 #include "Space.h"
 #include "rnd_normal.h"
 
-using namespace HackTM;
+namespace hacktm {
 
 /*
  * Space
@@ -160,3 +160,5 @@ SpaceTransform::transformIdBackward(id_t oid) const
   assert (__inputSpace->contains(iid) );
   return iid;
 }
+
+} //namespace

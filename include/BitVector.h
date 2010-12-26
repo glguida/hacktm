@@ -17,7 +17,7 @@ namespace std {
   }
 }
 
-namespace HackTM {
+namespace hacktm {
 
   typedef llvm::BitVector BitVector;
 

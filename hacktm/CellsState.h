@@ -8,7 +8,8 @@
 
 #include <list>
 
-namespace HackTM {
+namespace hacktm {
+
   class CellsState {
   public:
     CellsState(Space *cellspace);
@@ -66,5 +67,6 @@ namespace HackTM {
     std::vector<id_t> __learnCells[HTMTIME_MAX];
     Space     *__cellSpace;
   };
-}
+
+} // namespace
 #endif

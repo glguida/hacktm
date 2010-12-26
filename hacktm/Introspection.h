@@ -13,7 +13,7 @@
 #include "ProximalDendrite.h"
 #include "TemporalPooler.h"
 
-namespace HackTM {
+namespace hacktm {
 
   class Introspection {
   public:
@@ -123,6 +123,7 @@ namespace HackTM {
     void dumpLearnCells(const TemporalPooler *tp, htmtime_t t);
     void dumpLearnCells_bitmap(const TemporalPooler *tp);
   }
-}
+
+} // namespace
 
 #endif

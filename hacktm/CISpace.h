@@ -9,7 +9,7 @@
  * Column-IndexOfCell Spaces.
  */
 
-namespace HackTM {
+namespace hacktm {
 
   class CISpace {
   public:
@@ -32,6 +32,6 @@ namespace HackTM {
     Space *__space;
   };
 
-}
+} // namespace
 
 #endif

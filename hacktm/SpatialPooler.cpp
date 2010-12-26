@@ -6,7 +6,7 @@
 #include "SpatialPooler.h"
 #include "BitVector.h"
 
-namespace HackTM {
+namespace hacktm {
 
   SpatialPooler::SpatialPooler(const Space *inputspace, 
 			       const Space *columnspace)

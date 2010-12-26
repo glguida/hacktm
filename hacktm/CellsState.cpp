@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-using namespace HackTM;
+namespace hacktm {
 
 CellsState::CellsState(Space *cellspace)
   : __cellSpace(cellspace)
@@ -46,3 +46,4 @@ CellsState::resetState(htmtime_t time)
   __learnCells[time].clear();
 }
 
+}

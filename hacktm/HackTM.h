@@ -4,7 +4,7 @@
 #include <vector>
 #include <list>
 
-namespace HackTM {
+namespace hacktm {
 
   typedef int coord_t;
   typedef unsigned id_t;

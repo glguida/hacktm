@@ -10,7 +10,7 @@
 #include "ProximalDendrite.h"
 #include "BitVector.h"
 
-namespace HackTM {
+namespace hacktm {
 
   class SpatialPooler {
   public:

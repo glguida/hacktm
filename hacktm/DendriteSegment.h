@@ -15,9 +15,7 @@
 
 #include <list>
 
-namespace HackTM {
-
-
+namespace hacktm {
 
   typedef enum {
     inactiveState = 0, /* Below the threshold. */
@@ -54,5 +52,6 @@ namespace HackTM {
     std::list<struct synapse *> __connectedSynapses;
     std::list<struct synapse *> __potentialSynapses;
   };
-}
+
+} // namespace
 #endif

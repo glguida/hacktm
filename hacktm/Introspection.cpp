@@ -7,7 +7,8 @@
 
 #include <iostream>
 
-namespace HackTM {
+namespace hacktm {
+
   namespace IntrospectionLib {
     void
     dumpPotentialSynapses(const SpatialPooler *sp, unsigned column)

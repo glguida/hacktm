@@ -3,7 +3,8 @@
 
 typedef std::list<struct synapse *>::iterator synapse_iterator;
 
-namespace HackTM {
+namespace hacktm {
+
   void
   DendriteSegment::computeState(const htmtime_t t)
   {
@@ -149,4 +150,4 @@ namespace HackTM {
     }
   }
 
-}
+} // namespace

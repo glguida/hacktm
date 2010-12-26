@@ -2,7 +2,7 @@
 #include "Space.h"
 #include "CISpace.h"
 
-using namespace HackTM;
+namespace hacktm {
 
 CISpace::CISpace(Space *columnspace, unsigned cells)
 {
@@ -28,3 +28,4 @@ CISpace::~CISpace()
   delete __space;
 }
 
+} // namespace

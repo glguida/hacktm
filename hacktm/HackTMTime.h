@@ -3,7 +3,7 @@
 
 #define HTMTIME_MAX 2
 
-namespace HackTM {
+namespace hacktm {
 
   typedef int htmtime_t;
 

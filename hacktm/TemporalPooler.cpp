@@ -6,7 +6,7 @@
 #include <cassert>
 #include <numeric>
 
-namespace HackTM {
+namespace hacktm {
 
   TemporalPooler::TemporalPooler(Space *columnspace, unsigned cellspercol)
   {

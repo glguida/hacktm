@@ -3,7 +3,7 @@
 #include "ProximalDendrite.h"
 #include "SpatialPooler.h"
 
-using namespace HackTM;
+using namespace hacktm;
 
 /*
  * Print out potential synapses of a column at the center of the input

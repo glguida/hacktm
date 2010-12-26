@@ -6,7 +6,7 @@
 #include "Space.h"
 #include "BitVector.h"
 
-namespace HackTM {
+namespace hacktm {
 
   class ProximalDendrite {
   public:
@@ -32,6 +32,6 @@ namespace HackTM {
     std::list<synapse *> __potentialSynapses;
   };
 
-}
+} // namespace
   
 #endif

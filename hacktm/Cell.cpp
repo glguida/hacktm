@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-namespace HackTM {
+namespace hacktm {
 
   void
   Cell::setup(id_t id, CellsState *cstate)
@@ -124,4 +124,4 @@ namespace HackTM {
 
     return ret;
   }
-}
+} // namespace

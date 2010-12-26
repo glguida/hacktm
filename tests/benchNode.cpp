@@ -6,7 +6,7 @@
 #include "SpatialPooler.h"
 #include "TemporalPooler.h"
 
-using namespace HackTM;
+using namespace hacktm;
 
 #define NUM 1000
 
@@ -42,7 +42,7 @@ main()
   BitVector black(inputSpace.getSize());
   black.set();
 
-  std::list<id_t> out;
+  std::list<hacktm::id_t> out;
 
   c2 = clock();
   htmtime_t cur = 0;

@@ -3,7 +3,7 @@
 #include "SpatialPooler.h"
 #include "TemporalPooler.h"
 
-using namespace HackTM;
+using namespace hacktm;
 
 main()
 {
@@ -37,7 +37,7 @@ main()
   BitVector black(inputSpace.getSize());
   black.set();
 
-  std::list<id_t> out;
+  std::list<hacktm::id_t> out;
 
   std::cout << "done." << std::endl;
 

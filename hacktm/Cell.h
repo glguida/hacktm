@@ -9,7 +9,7 @@
 #include "HackTM.h"
 #include "DendriteSegment.h"
 
-namespace HackTM {
+namespace hacktm {
 
   struct segmentUpdate {
     struct DendriteSegment *s;
@@ -52,5 +52,5 @@ namespace HackTM {
     std::list<segmentUpdate *>   __segmentUpdateList;
   };
 
-}
+} // namespace
 #endif
