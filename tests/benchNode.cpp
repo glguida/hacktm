@@ -8,6 +8,7 @@
 
 using namespace hacktm;
 
+#define CELLSPERCOL 4
 #define NUM 1000
 
 main()
@@ -23,7 +24,7 @@ main()
   Space inputSpace(input), columnSpace(columns);
 
   SpatialPooler sp(&inputSpace, &columnSpace);
-  TemporalPooler tp(&columnSpace, 4);
+  TemporalPooler tp(&columnSpace, CELLSPERCOL);
 
   BitVector diagonalL(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
@@ -42,7 +43,8 @@ main()
   BitVector black(inputSpace.getSize());
   black.set();
 
-  std::list<hacktm::id_t> out;
+  std::list<hacktm::id_t> actColumns;
+  BitVector output(columnSpace.getSize() * CELLSPERCOL);
 
   c2 = clock();
   htmtime_t cur = 0;
@@ -53,29 +55,18 @@ main()
     prev = (prev + 1) % 2;
     switch ( id % 4) {
     case 0 : 
-      sp.run(diagonalL, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(diagonalL, actColumns);
       break;
     case 1:
-      sp.run(diagonalR, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(diagonalR, actColumns);
       break;
     case 2:
-      sp.run(ddiag, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(ddiag, actColumns);
       break;
     case 4:
-      sp.run(black, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(black, actColumns);
     }
+    tp.run(cur, prev, actColumns, output);
   }
   c3 = clock();
 

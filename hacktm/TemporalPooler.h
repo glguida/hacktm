@@ -16,10 +16,11 @@ namespace hacktm {
     TemporalPooler(Space *columnspace, unsigned cellspercol);
     ~TemporalPooler();
 
-    void run(const std::list<id_t> &actColumns, BitVector &output);
-    void calculateActiveState(htmtime_t cur, htmtime_t prev, std::list<id_t> &actColumns);
+    void run(htmtime_t cur, htmtime_t prev, const std::list<id_t> &actColumns, BitVector &output);
+    void calculateActiveState(htmtime_t cur, htmtime_t prev, const std::list<id_t> &actColumns);
     void calculatePredictiveState(htmtime_t cur, htmtime_t prev);
     void learn(htmtime_t cur, htmtime_t prev);
+    void getOutput(htmtime_t cur, BitVector &output);
     
     friend class Introspection;
   private:

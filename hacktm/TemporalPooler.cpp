@@ -30,16 +30,20 @@ namespace hacktm {
     delete [] __cells;
   }
 
-  void TemporalPooler::run(const std::list<id_t> &actColumns, BitVector &output)
+  void TemporalPooler::run(htmtime_t cur, htmtime_t prev, const std::list<id_t> &actColumns, BitVector &output)
   {
+    calculateActiveState(cur, prev, actColumns);
+    calculatePredictiveState(cur, prev);
+    learn(cur, prev);
+    getOutput(cur, output);
   }
 
   void
-  TemporalPooler::calculateActiveState(htmtime_t cur, htmtime_t prev, std::list<id_t> &actColumns)
+  TemporalPooler::calculateActiveState(htmtime_t cur, htmtime_t prev, const std::list<id_t> &actColumns)
   {
     __cellsState->resetState(cur);
 
-    std::list<id_t>::iterator it;
+    std::list<id_t>::const_iterator it;
     for ( it = actColumns.begin(); it != actColumns.end(); it++ ) {
       bool buPredicted = false;
       bool lcChosen = false;
@@ -74,11 +78,6 @@ namespace hacktm {
 	cell->addSegmentUpdateList(sUpdate);
       }
     }
-
-    IntrospectionLib::dumpActiveCells(this, cur);
-    IntrospectionLib::dumpLearnCells_bitmap(this);
-    //    __cellsState->dumpActiveState(cur);
-    //    __cellsState->dumpLearnState();
   }
 
   void
@@ -90,9 +89,6 @@ namespace hacktm {
       if ( __cells[cid].getPredictiveState(cur, prev) )
 	__cellsState->setPredictiveState(cid, cur);
     }
-    IntrospectionLib::dumpPredictiveCells(this, cur);
-    //    __cellsState->dumpPredictiveState(cur);
-
   }
 
   void
@@ -106,8 +102,13 @@ namespace hacktm {
 	__cells[cid].adaptSegments(false);
       }
     }
-    __cellsState->_TMP_dumpOutput(cur);
-    std::cout << std::endl;
+  }
+
+  void
+  TemporalPooler::getOutput(htmtime_t cur, BitVector &output)
+  {
+    __cellsState->copyActiveState(cur, output);
+    __cellsState->orPredictiveState(cur, output);
   }
 
   Cell *

@@ -2,8 +2,11 @@
 #include "HackTM.h"
 #include "SpatialPooler.h"
 #include "TemporalPooler.h"
+#include "Introspection.h"
 
 using namespace hacktm;
+
+#define CELLSPERCOL 4
 
 main()
 {
@@ -18,7 +21,7 @@ main()
   std::cout << "Initializing...";
 
   SpatialPooler sp(&inputSpace, &columnSpace);
-  TemporalPooler tp(&columnSpace, 4);
+  TemporalPooler tp(&columnSpace, CELLSPERCOL);
 
   BitVector diagonalL(inputSpace.getSize());
   for ( unsigned i = 0; i < 1000; i++ ) {
@@ -37,7 +40,8 @@ main()
   BitVector black(inputSpace.getSize());
   black.set();
 
-  std::list<hacktm::id_t> out;
+  std::list<hacktm::id_t> actColumns;
+  BitVector output(columnSpace.getSize() * CELLSPERCOL);
 
   std::cout << "done." << std::endl;
 
@@ -48,28 +52,24 @@ main()
     std::cin >> c;
     switch ( c ) {
     case 'z' : 
-      sp.run(diagonalL, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(diagonalL, actColumns);
       break;
     case 'x':
-      sp.run(diagonalR, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(diagonalR, actColumns);
       break;
     case 'c':
-      sp.run(ddiag, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(ddiag, actColumns);
       break;
     default:
-      sp.run(black, out);
-      tp.calculateActiveState(cur, prev, out);
-      tp.calculatePredictiveState(cur, prev);
-      tp.learn(cur, prev);
+      sp.run(black, actColumns);
     }
+    tp.run(cur, prev, actColumns, output);
+    IntrospectionLib::dumpActiveCells(&tp, cur);
+    IntrospectionLib::dumpLearnCells_bitmap(&tp);
+    IntrospectionLib::dumpPredictiveCells(&tp, cur);
+
+    std::cout << "Output: " << std::endl;
+    std::cout << output << std::endl;
+
   }
 }

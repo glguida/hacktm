@@ -37,23 +37,13 @@ namespace hacktm {
       __learnState->set(cellid);
       __learnCells[time].push_back(cellid);
     }
-
-    inline void dumpActiveState(htmtime_t time) {
-      std::cout << "Active State: " << std::endl;
-      std::cout << *__activeState[time] << std::endl;
+    inline void copyActiveState(htmtime_t time, BitVector &cp) const
+    {
+      cp = *__activeState[time];
     }
-    inline void dumpPredictiveState(htmtime_t time) {
-      std::cout << "Predictive State: " << std::endl;
-      std::cout << *__predictiveState[time] << std::endl;
-    }
-    inline void dumpLearnState() {
-      std::cout << "Learn State: " << std::endl;
-      std::cout << *__learnState << std::endl;
-    }
-    inline void _TMP_dumpOutput(htmtime_t time) {
-      (*__learnState) = *__predictiveState[time];
-      (*__learnState) |= *__activeState[time];
-      std::cout << *__learnState << std::endl;
+    inline void orPredictiveState(htmtime_t time, BitVector &base) const
+    {
+      base |= *__predictiveState[time];
     }
 
     void getRandomLearnCells(htmtime_t time, unsigned num, std::list<id_t> &list);
