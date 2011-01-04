@@ -1,0 +1,51 @@
+HackTM C++ library
+
+This library implements the Cortical Learning Algorithm as described
+by Numenta's paper[1] in C++. It is meant to be a framework to
+experiment with HTMs and the algorithm itself. 
+
+This library works using bitmaps for input and output, and can
+associate these bitmaps to a generic, n-dimensional space.
+
+No aggressive optimizations have been pursued, memory usage is not
+optimal but it is fast enough and it is designed to be easily
+pipelined by parallel threads.
+
+To ease portability, it only uses STL library, with the exception of
+LLVM BitVector class, included in the tree.
+
+
+COMPILATION INSTRUCTIONS:
+
+You will need cmake (http://www.cmake.org) to generate makefiles.
+When you have installed cmake in your system, create a build
+directory, cd into it and type:
+
+ $ cmake /path/to/sources/
+
+where "/path/to/sources/" is the place where the source have been
+installed. If successful, you can type "make" and have the library and
+tests compiled.
+
+
+DIFFERENCES BETWEEN NUMENTA'S ALGORITHM AND HACKTM:
+
+1. Boosting has not been implemented. There's no technical problem
+behind implementing it, just lack of interest at this moment.
+2. Sequence segments and prediction segments are treated
+separately. This helps the sequential learner to better differentiate
+between sequences with the same elements but in different order.
+
+
+IMPORTANT NOTES ABOUT THE USE OF THIS SOFTWARE AND THE CLA ALGORITHM
+
+This software is inteded for personal use and research only. Numenta
+owns the Intellectual Property of the HTM algorithm. Please refer to
+Numenta website for more information.
+
+Also note that I am not affiliated at all with such company, and that
+this library is the result of programming in my free time.
+
+
+[1] http://numenta.com/htm-overview/education/HTM_CorticalLearningAlgorithms.pdf
+
