@@ -15,7 +15,7 @@ main()
 {
   clock_t c1, c2, c3;
 
-  /* First of all, diable debug flags. */
+  /* First of all, disable debug flags. */
   hacktmdebug::Flags = 0;
 
   c1 = clock();
@@ -73,6 +73,6 @@ main()
 #define SECONDS(_c)  ((_c)/CLOCKS_PER_SEC)
 #define MSECS(_c)    (((_c) % CLOCKS_PER_SEC)/(CLOCKS_PER_SEC/1000))
   std::cerr << "Initialization took " << SECONDS(c2 - c1) << " and " << MSECS(c2 - c1) << " milliseconds." << std::endl;
-  std::cerr << "Spatial pooling took " << SECONDS(c3 - c2) << " and " << MSECS(c3 - c2) << " milliseconds for " << NUM 
+  std::cerr << "HackTM took " << SECONDS(c3 - c2) << " and " << MSECS(c3 - c2) << " milliseconds for " << NUM 
 	    << " inputs. (avg of " << SECONDS((c3 - c2)/NUM) << "s and " << MSECS((c3-c2)/NUM) << " msecs per operation)." << std::endl;
 }
