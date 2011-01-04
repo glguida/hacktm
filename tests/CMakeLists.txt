@@ -12,6 +12,3 @@ target_link_libraries(benchNode hacktm)
 
 add_executable(showDendrites showDendrites.cpp)
 target_link_libraries(showDendrites hacktm)
-
-add_executable(testxbm testxbm.cpp xbmlib.cpp)
-
