@@ -4,8 +4,8 @@ This library implements the Cortical Learning Algorithm as described
 by Numenta's paper[1] in C++. It is meant to be a framework to
 experiment with HTMs and the algorithm itself. 
 
-This library works using bitmaps for input and output, and can
-associate these bitmaps to a generic, n-dimensional space.
+This library works using bitmaps for input and output, and it is able
+to associate these bitmaps to a generic, n-dimensional space.
 
 No aggressive optimizations have been pursued, memory usage is not
 optimal but it is fast enough and it is designed to be easily
