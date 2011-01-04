@@ -23,6 +23,7 @@ namespace hacktm {
     void setup(id_t cid, CellsState *cellstate);
     DendriteSegment *getActiveSegment(htmtime_t t, segmentstate_t state);
     DendriteSegment *getBestMatchingSegment(htmtime_t t, unsigned int &maxactive);
+    DendriteSegment *getBestMatchingSequenceSegment(htmtime_t t, unsigned &active);
     
     void getSegmentActiveSynapses(segmentUpdate *sUpdate,
 				  const htmtime_t t,
@@ -45,6 +46,7 @@ namespace hacktm {
     }
 
     typedef std::list<DendriteSegment *>::iterator segment_iterator;
+    friend class Introspection;
   private:
     id_t                         __id;
     CellsState                  *__cellstate;

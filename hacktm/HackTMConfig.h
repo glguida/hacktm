@@ -3,10 +3,12 @@
 
 namespace htmconfig {
 
-  /* The minimum permanence value at which a synapse is considered "connected" */
+  /* The minimum permanence value at which a synapse is considered
+     "connected" */
   extern float connectedPerm;
 
-  /* Amount pf permanence value synapse are incremented/decremented during learning. */
+  /* Amount of permanence value synapse are incremented/decremented
+     during learning. */
   extern float permanenceInc;
   extern float permanenceDec;
 

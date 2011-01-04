@@ -45,6 +45,27 @@ namespace hacktm {
     unsigned maxactive = 0;
     segment_iterator it;
     for ( it = __segments.begin(); it != __segments.end(); it++ ) {
+      if ( (*it)->isSequenceSegment() )
+	continue;
+      unsigned cur = (*it)->getMatchingSynapses(t);
+      if ( cur > maxactive ) {
+	maxactive = cur;
+	s = (*it);
+      }
+    }
+    active = maxactive;
+    return s;
+  }
+
+  DendriteSegment*
+  Cell::getBestMatchingSequenceSegment(htmtime_t t, unsigned &active)
+  {
+    DendriteSegment *s = NULL;
+    unsigned maxactive = 0;
+    segment_iterator it;
+    for ( it = __segments.begin(); it != __segments.end(); it++ ) {
+      if ( !(*it)->isSequenceSegment() )
+	continue;
       unsigned cur = (*it)->getMatchingSynapses(t);
       if ( cur > maxactive ) {
 	maxactive = cur;

@@ -40,6 +40,8 @@ namespace hacktm {
     void synapseReinforcement(std::list<id_t> &activeSynapses, bool, bool);
     void addSynapses(std::list<id_t> &newSynapses);
     //    void update(segmentUpdate *su, bool positiveReinforcement);
+
+    friend class Introspection;
   private:
     bool __sequence; /* This segment is a "sequence segment", meaning
 		       	that it is believed that when it is active the

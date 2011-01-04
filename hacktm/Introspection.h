@@ -90,6 +90,12 @@ namespace hacktm {
       return tp->__cellsState;
     }
 
+    inline const std::list<DendriteSegment *>& 
+    getCellDendriteSegments(const Cell *c) const
+    {
+      return c->__segments;
+    }
+
     inline const BitVector *
     getCellsStateActiveState(const CellsState *cs, htmtime_t t) const
     {
@@ -112,6 +118,12 @@ namespace hacktm {
     getCellsStateLearnCells(const CellsState *cs, htmtime_t t) const
     {
       return cs->__learnCells[t];
+    }
+
+    inline const std::list<struct synapse *> &
+    getDendriteSegmentPotentialSynapses(const DendriteSegment *s) const
+    {
+      return s->__potentialSynapses;
     }
   };
 

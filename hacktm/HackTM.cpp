@@ -27,7 +27,7 @@ namespace htmconfig {
   /*Activation threshold for a segment. If the number of active
     connected synapses in a segment is greater than
     activationThreshold, the segment is said to be active. */
-  unsigned activationThreshold = 15;
+  unsigned activationThreshold = 8;
 
   /* Minimum segment activity for learning. */
   unsigned minThreshold = 5;

@@ -47,7 +47,8 @@ namespace hacktm {
 	  it != __potentialSynapses.end(); it++ ) {
       struct synapse *syn = *it;
 
-      if ( __cellstate->activeState(syn->id, t) && syn->perm > 0.0f )
+      if ( __cellstate->activeState(syn->id, t) 
+	   && syn->perm >= htmconfig::initialPerm )
 	active++;
     }
 

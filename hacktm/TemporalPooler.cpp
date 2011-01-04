@@ -119,7 +119,7 @@ namespace hacktm {
     DendriteSegment *bestsegm = NULL, *s;
     for ( unsigned i = 0; i < __cellsPerColumn; i++ ) {
       cell = __getCell(c, i);
-      s = cell->getBestMatchingSegment(t, active);
+      s = cell->getBestMatchingSequenceSegment(t, active);
       if ( s != NULL && active > bestactive ) {
 	bestsegm = s;
 	bestcell = cell;
@@ -142,7 +142,6 @@ namespace hacktm {
 	bestcell = cell;
       }
     }
-
     assert ( bestcell != NULL );
     segment = NULL;
     return bestcell;

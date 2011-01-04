@@ -7,12 +7,10 @@
 
 namespace std {
   inline ostream &operator<< (ostream &ostr, const llvm::BitVector&RHS) {
-    ostr << "[ ";
-
     for ( unsigned i = 0; i < RHS.size(); i++ )
       ostr << RHS.test(i);
 
-    ostr << " ]\n";
+    ostr << "\n";
     return ostr;
   }
 }
