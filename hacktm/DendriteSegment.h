@@ -49,7 +49,7 @@ namespace hacktm {
   typedef enum {
     inactiveState = 0, /* Below the threshold. */
     activeState,       /* Over the threshold. */
-    learnState,        /* activeState + learnState cell in active synapses. */
+    learnState         /* activeState + learnState cell in active synapses. */
   } segmentstate_t;
 
   class DendriteSegment {

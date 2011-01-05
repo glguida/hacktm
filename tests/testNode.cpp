@@ -56,6 +56,7 @@ using namespace hacktm;
 #define CELLSPERCOL 4
 
 
+int
 main()
 {
   struct xbmlib::xbmImage bmp1, bmp2, bmp3, bmp4;

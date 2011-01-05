@@ -116,7 +116,7 @@ namespace hacktm {
   scalar_t
   SpatialPooler::__avgReceptiveFieldSize()
   {
-    unsigned long long avg = 0; // No overflow check.
+    uint64_t avg = 0; // No overflow check.
     for ( unsigned i = 0; i < __columnSpace->getSize(); i++ )
       avg += __dendrites[i].getReceptiveFieldSize();
     return avg / __columnSpace->getSize();
@@ -146,7 +146,7 @@ namespace hacktm {
       it = lower_bound(scores.begin(), scores.end(), 
 		       newscore, std::greater<unsigned>());
 
-      if ( it - scores.begin() < __k )
+      if ( it - scores.begin() < (ptrdiff_t)__k )
 	scores.insert(it, newscore);
 
       return;
@@ -200,5 +200,5 @@ namespace hacktm {
       __dendrites[i].populateSynapses(syns, __inputSpace, center);
     }
   }
-};
+}
 

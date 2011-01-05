@@ -32,6 +32,7 @@
 
 using namespace hacktm;
 
+int
 main()
 {
   Vector v1(3, 1000);

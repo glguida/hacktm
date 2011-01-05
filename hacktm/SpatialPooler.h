@@ -67,6 +67,6 @@ namespace hacktm {
     const SpaceTransform  *__inputToColumn;
   };
 
-};
+}
 
 #endif

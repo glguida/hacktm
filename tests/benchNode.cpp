@@ -40,6 +40,7 @@ using namespace hacktm;
 #define CELLSPERCOL 4
 #define NUM 1000
 
+int
 main()
 {
   clock_t c1, c2, c3;

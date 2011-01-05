@@ -43,6 +43,7 @@ using namespace hacktm;
  * See the GNUplot script 'showDendrites.gp'.
  */
 
+int
 main()
 {
   Vector input(2, 1000);
