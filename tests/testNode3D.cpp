@@ -117,7 +117,7 @@ main()
     Vector v(cellSpace->getDimension());
 
     std::cout << "clear" << std::endl;
-    std::cout << "set grid on " << std::endl;
+    std::cout << "set grid 0 " << std::endl;
     std::cout << "set key off" << std::endl;
     std::cout << "set multiplot layout 4,4" << std::endl;
 

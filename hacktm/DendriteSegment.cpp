@@ -112,19 +112,20 @@ namespace hacktm {
     s->perm = std::min(1.0f, s->perm + htmconfig::permanenceInc);
   }
 
-  static bool __syn_id_comp(struct synapse *syn, id_t id)
+  static bool __syn_comp(struct synapse *syn1, struct synapse *syn2)
   {
-    return syn->id < id;
+    return syn1->id < syn2->id;
   }
 
   void
   DendriteSegment::addSynapses(std::list<id_t> &newSynapses)
   {
     std::list<id_t>::iterator newSynIt;
+    struct synapse syn2;
     synapse_iterator it;
     for ( newSynIt = newSynapses.begin(); newSynIt != newSynapses.end(); newSynIt++ ) {
-
-      it = std::lower_bound(__potentialSynapses.begin(), __potentialSynapses.end(), *newSynIt, __syn_id_comp);
+      syn2.id = *newSynIt;
+      it = std::lower_bound(__potentialSynapses.begin(), __potentialSynapses.end(), &syn2, __syn_comp);
 
       /* getRandomLearnCells does not guaratee us that synapse aren't there already. */
       if ( it != __potentialSynapses.end() 
