@@ -31,7 +31,8 @@
  * This program is useful for testing and watching the algorithm learn
  * sequences of inputs. You can feed to the system four different
  * bitmaps (test1.xbm, test2.xbm, test3.xbm, test4.xbm) using the keys
- * 'z', 'x', 'c' or 'v'.
+ * 'z' (test1.xbm) , 'x' (test2.xbm), 'c' (test2.xbm). Any other char
+ * feeds the system with test4.xbm.
  *
  * Visualization is done trought gnuplot, so the suggested usage is:
  *  ./testNode | gnuplot
@@ -87,6 +88,8 @@ main()
   /* Disable debug flags. */
   hacktmdebug::Flags = 0;
 
+  std::cerr << "Ready." << std::endl;
+
   while ( 1 ) {
     cur = ( cur + 1 ) % 2;
     prev = (prev + 1) % 2;
@@ -102,11 +105,9 @@ main()
     case 'c':
       sp.run(bv3, actColumns);
       break;
-    case 'v':
+    default:
       sp.run(bv4, actColumns);
       break;
-    default:
-      continue;
     }
     tp.run(cur, prev, actColumns, output);
 
@@ -127,8 +128,8 @@ main()
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
 	  std::cout << "e" << std::endl;
-	else
-	  std::cout << "set title 'Active State'" << std::endl;
+	std::cout << "set title 'Active State " 
+		  << id/columnSpace.getSize() << "'" << std::endl;
 	std::cout << "plot [0:40][0:40] '-' using 1:2 " << std::endl;
       }
       if ( activeState->test(id) ) {
@@ -146,8 +147,8 @@ main()
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
 	  std::cout << "e" << std::endl;
-	else
-	  std::cout << "set title 'Predictive State'" << std::endl;
+	std::cout << "set title 'Predictive State "  
+		  << id/columnSpace.getSize() << "'" << std::endl;
 	std::cout << "plot [0:40][0:40] '-' using 1:2 " << std::endl;
       }
       if ( predictiveState->test(id) ) {
@@ -164,8 +165,8 @@ main()
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
 	  std::cout << "e" << std::endl;
-	else
-	  std::cout << "set title 'Learn State'" << std::endl;
+	std::cout << "set title 'Learn State " << id/columnSpace.getSize() 
+		  << "'" << std::endl;
 	std::cout << "plot [0:40][0:40] '-' using 1:2 " << std::endl;
       }
       if ( learnState->test(id) ) {
@@ -182,8 +183,8 @@ main()
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
 	  std::cout << "e" << std::endl;
-	else
-	  std::cout << "set title 'Output'" << std::endl;
+	std::cout << "set title 'Output " << id/columnSpace.getSize() 
+		  << "'" << std::endl;
 	std::cout << "plot [0:40][0:40] '-' using 1:2 " << std::endl;
       }
       if ( output.test(id) ) {
