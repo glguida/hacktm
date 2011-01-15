@@ -25,5 +25,4 @@ namespace std {
 
 using namespace llvm;
 
-
 #endif
