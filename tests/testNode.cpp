@@ -104,7 +104,7 @@ main()
     std::cout << "set key off" << std::endl;
     std::cout << "set multiplot layout 4,4" << std::endl;
 
-    for ( id_t id = 0; id < cellSpace->getSize(); id++ ) {
+    for ( hacktm::id_t id = 0; id < cellSpace->getSize(); id++ ) {
 
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
@@ -123,7 +123,7 @@ main()
     std::cout << "e" << std::endl;
 
 
-    for ( id_t id = 0; id < cellSpace->getSize(); id++ ) {
+    for ( hacktm::id_t id = 0; id < cellSpace->getSize(); id++ ) {
 
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
@@ -141,7 +141,7 @@ main()
     }
     std::cout << "e" << std::endl;
 
-    for ( id_t id = 0; id < cellSpace->getSize(); id++ ) {
+    for ( hacktm::id_t id = 0; id < cellSpace->getSize(); id++ ) {
 
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
@@ -159,7 +159,7 @@ main()
     }
     std::cout << "e" << std::endl;
 
-    for ( id_t id = 0; id < cellSpace->getSize(); id++ ) {
+    for ( hacktm::id_t id = 0; id < cellSpace->getSize(); id++ ) {
 
       if ( (id % columnSpace.getSize()) == 0 ) {
 	if ( id != 0 )
